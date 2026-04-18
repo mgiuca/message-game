@@ -22,8 +22,6 @@ func _ready() -> void:
 
   Globals.init_settings(start_fullscreen, music_volume, sound_effects_volume)
 
-  InputManager.mouse_state = InputManager.MouseState.VISIBLE
-
   if OS.has_feature('mobile') or OS.has_feature('web'):
     # Doesn't make sense to "quit" on mobile or web.
     # (Especially web, which just crashes.)

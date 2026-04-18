@@ -16,7 +16,6 @@ func _unhandled_input(event: InputEvent) -> void:
 func show_menu() -> void:
   get_tree().paused = true
   show()
-  InputManager.mouse_state = InputManager.MouseState.VISIBLE
   set_process_unhandled_input(true)
   (%BtnResume as Control).grab_focus()
 
