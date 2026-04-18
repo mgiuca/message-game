@@ -37,7 +37,7 @@ custom_minimum_size = Vector2(300, 1.45519e-11)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 40
-text = "<Game Name>"
+text = "The Message"
 horizontal_alignment = 1
 autowrap_mode = 3
 
@@ -178,9 +178,9 @@ custom_minimum_size = Vector2(700, 450)
 layout_mode = 2
 focus_mode = 2
 bbcode_enabled = true
-text = "[font_size=25][b]Game Name[/b][/font_size]
+text = "[font_size=25][b]The Message[/b][/font_size]
 Work-in-progress prototype
-© <year> by Matt Giuca
+© 2026 by Matt Giuca
 
 [b]Game design, programming[/b]
 Matt Giuca

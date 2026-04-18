@@ -49,7 +49,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_font_sizes/font_size = 10
-text = "© <year> Matt Giuca"
+text = "© 2026 Matt Giuca"
 
 [node name="HbxVersionInfo" type="HBoxContainer" parent="VersionInfo/TopRight/VBoxContainer" unique_id=1914208916]
 layout_mode = 2
