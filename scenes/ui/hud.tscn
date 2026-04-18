@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://cj46p1qq7r6sp"]
+
+[ext_resource type="Script" uid="uid://dbr6rxjei60ph" path="res://scenes/ui/hud.gd" id="1_nixt2"]
+
+[node name="HUD" type="MarginContainer" unique_id=545799309]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+script = ExtResource("1_nixt2")
+
+[node name="TopLeft" type="VBoxContainer" parent="." unique_id=269165623]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="LblLevelName" type="Label" parent="TopLeft" unique_id=745023679]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TopRight" type="VBoxContainer" parent="." unique_id=907459423]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="VbxSpace" type="VBoxContainer" parent="TopRight" unique_id=684720619]
+layout_mode = 2
+
+[node name="LblEmpty1" type="Label" parent="TopRight/VbxSpace" unique_id=594884789]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 10
+
+[node name="LblEmpty2" type="Label" parent="TopRight/VbxSpace" unique_id=531985900]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 10
+
+[node name="DebugItems" type="VBoxContainer" parent="TopRight" unique_id=1685365465]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="LblPerformance" type="Label" parent="TopRight/DebugItems" unique_id=908676701]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "FPS:"
+
+[node name="LblInputMode" type="Label" parent="TopRight/DebugItems" unique_id=1852429619]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Input device:"
+
+[node name="BottomLeft" type="VBoxContainer" parent="." unique_id=789124199]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="BottomRight" type="VBoxContainer" parent="." unique_id=152596994]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8

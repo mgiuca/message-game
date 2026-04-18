@@ -1,0 +1,15 @@
+.*.swp
+*.blend1
+*.bak
+
+/out/
+
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# Reaper ignores
+/source/music/Media
+/source/music/Backups
+/source/sounds/Media
+/source/sounds/Backups

@@ -1,0 +1,130 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - release
+
+# TODO: Change EXPORT_NAME to the correct app name.
+env:
+  # If changing Godot version, need to manually refresh the SHA256 sums (see
+  # "Verify hash" step below).
+  GODOT_VERSION: 4.6.1-stable
+  # Same as GODOT_VERSION but with '.' instead of '-'.
+  GODOT_VERSION_DOT: 4.6.1.stable
+  EXPORT_NAME: app-name
+  # debug or release
+  EXPORT_BUILD: release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          # Avoid checking out directories that will not be part of the build.
+          # TODO: Customize this list based on non-build dirs in the project.
+          sparse-checkout: |
+            /*
+            !/meta
+            !/source
+      - name: Get project version
+        # Extract the config/version field from project.godot, for later use
+        # when uploading.
+        run: |
+          perl -nle 'if (m/config\/version="(.*)"/) {print $1}' < project.godot > out/project_version.txt
+          cat out/project_version.txt
+      - name: Upload project version
+        uses: actions/upload-artifact@v4
+        with:
+          name: project_version.txt
+          path: out/project_version.txt
+          retention-days: 5
+      - name: Cache Godot and templates
+        id: cache-godot-and-templates
+        uses: actions/cache@v4
+        with:
+          path: |
+            /tmp/godot
+            ~/.local/share/godot/export_templates/
+          key: ${{runner.os}}-godot-${{env.GODOT_VERSION}}-${{env.EXPORT_BUILD}}
+      - name: Download Godot
+        if: steps.cache-godot-and-templates.outputs.cache-hit != 'true'
+        run: |
+          cd /tmp
+          curl -f -L https://github.com/godotengine/godot-builds/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_linux.x86_64.zip -o godot.zip
+          unzip godot.zip
+          mv Godot_v${GODOT_VERSION}_linux.x86_64 godot
+          chmod +x godot
+      - name: Download export templates
+        if: steps.cache-godot-and-templates.outputs.cache-hit != 'true'
+        run: |
+          cd /tmp
+          curl -f -L https://github.com/godotengine/godot-builds/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_export_templates.tpz -o export_templates.zip
+          # Only unzip the templates we are planning to use. (May need to modify
+          # this and flush cache, depending on the project's export templates.)
+          unzip export_templates.zip templates/linux_${EXPORT_BUILD}.x86_64 templates/windows_${EXPORT_BUILD}_x86_64.exe templates/web_nothreads_${EXPORT_BUILD}.zip
+          mkdir -p ~/.local/share/godot/export_templates
+          mv templates ~/.local/share/godot/export_templates/${GODOT_VERSION_DOT}
+      - name: Verify hash of Godot and template binaries
+        # These files are hand-populated with the SHA256 sums of the contents of
+        # the Godot ZIP files (can't hash the ZIP files because they aren't in
+        # the cache).
+        # It needs to be manually refreshed when changing Godot version, after
+        # renaming the Godot binary to "godot", and deleting the unused export
+        # templates:
+        # $ sha256sum godot > godot-sha256sums.txt
+        # $ cd export_templates
+        # $ sha256sum *debug* > export-templates-debug-sha256sums.txt
+        # $ sha256sum *release* > export-templates-release-sha256sums.txt
+        # This is necessary to ensure the Godot binaries on GitHub did not
+        # change.
+        run: |
+          cp .github/workflows/*-sha256sums.txt /tmp
+          cd /tmp
+          sha256sum --check godot-sha256sums.txt
+          cd ~/.local/share/godot/export_templates/${GODOT_VERSION_DOT}
+          sha256sum --check /tmp/export-templates-${EXPORT_BUILD}-sha256sums.txt
+      - name: Build Linux
+        run: |
+          mkdir -p out/linux
+          /tmp/godot --headless --export-${EXPORT_BUILD} "Linux" out/linux/${EXPORT_NAME}.x86_64
+      - name: Build Windows
+        run: |
+          mkdir -p out/windows
+          /tmp/godot --headless --export-${EXPORT_BUILD} "Windows Desktop" out/windows/${EXPORT_NAME}.exe
+      - name: Build Web
+        run: |
+          mkdir -p out/html
+          /tmp/godot --headless --export-${EXPORT_BUILD} "Web" out/html/index.html
+      - name: Check repository is clean
+        run: |
+          if [[ -n $(git status --porcelain=1) ]]; then
+            git status
+            echo
+            echo 'Something caused changes to the repository. Halting build.'
+            false
+          else
+            echo 'Repository is clean.'
+          fi
+      - name: Upload Linux build
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{env.EXPORT_NAME}}-linux
+          path: out/linux
+          retention-days: 5
+      - name: Upload Windows build
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{env.EXPORT_NAME}}-windows
+          path: out/windows
+          retention-days: 5
+      - name: Upload Web build
+        uses: actions/upload-artifact@v4
+        with:
+          name: html
+          path: out/html
+          retention-days: 5

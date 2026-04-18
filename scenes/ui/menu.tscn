@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://c7js5gws2kjj5"]
+
+[ext_resource type="Theme" uid="uid://cav6s4wk6wpbp" path="res://themes/ui.tres" id="1_mkcpw"]
+[ext_resource type="Script" uid="uid://djj3oeky28mfl" path="res://scenes/ui/menu.gd" id="1_q85dp"]
+[ext_resource type="PackedScene" uid="uid://f3wv5ma8xvb0" path="res://scenes/ui/settings.tscn" id="3_c30v5"]
+
+[node name="Menu" type="PanelContainer" unique_id=1078920471]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = -64.0
+offset_right = 110.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_mkcpw")
+script = ExtResource("1_q85dp")
+
+[node name="TopLevel" type="MarginContainer" parent="." unique_id=1063945661]
+custom_minimum_size = Vector2(400, 1.45519e-11)
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TopLevel" unique_id=239031086]
+layout_mode = 2
+
+[node name="LblPaused" type="Label" parent="TopLevel/VBoxContainer" unique_id=1050778628]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Paused"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="HSeparator" type="HSeparator" parent="TopLevel/VBoxContainer" unique_id=135019638]
+layout_mode = 2
+
+[node name="BtnResume" type="Button" parent="TopLevel/VBoxContainer" unique_id=2111912792]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Resume"
+
+[node name="BtnSettings" type="Button" parent="TopLevel/VBoxContainer" unique_id=1332785842]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Settings"
+
+[node name="BtnRestart" type="Button" parent="TopLevel/VBoxContainer" unique_id=1150264378]
+layout_mode = 2
+text = "Restart level"
+
+[node name="BtnQuit" type="Button" parent="TopLevel/VBoxContainer" unique_id=1664740035]
+layout_mode = 2
+text = "Quit to Menu"
+
+[node name="Settings" parent="." unique_id=2122598212 instance=ExtResource("3_c30v5")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[connection signal="pressed" from="TopLevel/VBoxContainer/BtnResume" to="." method="_on_btn_resume_pressed"]
+[connection signal="pressed" from="TopLevel/VBoxContainer/BtnSettings" to="." method="_on_btn_settings_pressed"]
+[connection signal="pressed" from="TopLevel/VBoxContainer/BtnRestart" to="." method="_on_btn_restart_pressed"]
+[connection signal="pressed" from="TopLevel/VBoxContainer/BtnQuit" to="." method="_on_btn_quit_pressed"]
+[connection signal="closed" from="Settings" to="." method="_on_settings_closed"]

@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://f3wv5ma8xvb0"]
+
+[ext_resource type="Script" uid="uid://5g3lk70qknfc" path="res://scenes/ui/settings.gd" id="2_b3nay"]
+
+[node name="Settings" type="PanelContainer" unique_id=1022704637]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = -64.0
+offset_right = 110.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_b3nay")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=16679658]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=2105661653]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=566969176]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+text = "Settings"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="ChkFullscreen" type="CheckBox" parent="MarginContainer/VBoxContainer" unique_id=838702308]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+button_pressed = true
+text = "Fullscreen"
+
+[node name="HbxMusic" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=778010153]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HbxMusic" unique_id=1556136003]
+custom_minimum_size = Vector2(210, 1.45519e-11)
+layout_mode = 2
+text = "Music volume:"
+
+[node name="SldMusicVolume" type="HSlider" parent="MarginContainer/VBoxContainer/HbxMusic" unique_id=1432160866]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+scrollable = false
+
+[node name="HbxSound" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=21015913]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HbxSound" unique_id=928639090]
+custom_minimum_size = Vector2(210, 1.45519e-11)
+layout_mode = 2
+text = "Sound effects volume:"
+
+[node name="SldSoundVolume" type="HSlider" parent="MarginContainer/VBoxContainer/HbxSound" unique_id=975379990]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+scrollable = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=201580078]
+layout_mode = 2
+alignment = 1
+
+[node name="BtnBack" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=543821246]
+layout_mode = 2
+text = "Back"
+
+[connection signal="toggled" from="MarginContainer/VBoxContainer/ChkFullscreen" to="." method="_on_chk_fullscreen_toggled"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/HbxMusic/SldMusicVolume" to="." method="_on_sld_music_volume_value_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/HbxSound/SldSoundVolume" to="." method="_on_sld_sound_volume_value_changed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/BtnBack" to="." method="_on_btn_back_pressed"]

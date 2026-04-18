@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://byc7se7k0wfad"]
+
+[ext_resource type="Script" uid="uid://nx224gcg15g1" path="res://scenes/main.gd" id="1_c0h74"]
+[ext_resource type="PackedScene" uid="uid://bvweswfxul5oo" path="res://scenes/main_menu.tscn" id="2_l2wju"]
+[ext_resource type="PackedScene" uid="uid://th6kl3gsie3b" path="res://scenes/music_fader.tscn" id="3_jyhfs"]
+
+[node name="Main" type="Node" unique_id=1585844330]
+script = ExtResource("1_c0h74")
+current_scene = ExtResource("2_l2wju")
+
+[node name="MusicFader" parent="." unique_id=1629787139 instance=ExtResource("3_jyhfs")]
+
+[node name="ScrimLayer" type="CanvasLayer" parent="." unique_id=1424120255]
+layer = 100
+
+[node name="FadeScrim" type="ColorRect" parent="ScrimLayer" unique_id=1947345670]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="VersionInfo" type="CanvasLayer" parent="." unique_id=1267324929]
+layer = 101
+
+[node name="CanvasModulate" type="CanvasModulate" parent="VersionInfo" unique_id=103867480]
+position = Vector2(10, 0)
+color = Color(1, 1, 1, 0.752941)
+
+[node name="TopRight" type="MarginContainer" parent="VersionInfo" unique_id=46974503]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -24.0
+offset_bottom = 21.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VersionInfo/TopRight" unique_id=1072310957]
+layout_mode = 2
+
+[node name="LblCopyright" type="Label" parent="VersionInfo/TopRight/VBoxContainer" unique_id=2103233306]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 10
+text = "© <year> Matt Giuca"
+
+[node name="HbxVersionInfo" type="HBoxContainer" parent="VersionInfo/TopRight/VBoxContainer" unique_id=1914208916]
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 2
+
+[node name="LblVersion" type="Label" parent="VersionInfo/TopRight/VBoxContainer/HbxVersionInfo" unique_id=306256919]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 10
+
+[node name="Label" type="Label" parent="VersionInfo/TopRight/VBoxContainer/HbxVersionInfo" unique_id=2136331619]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 10
+text = "/"
+
+[node name="LblGitHash" type="Label" parent="VersionInfo/TopRight/VBoxContainer/HbxVersionInfo" unique_id=425363901]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 10
+
+[node name="Label2" type="Label" parent="VersionInfo/TopRight/VBoxContainer/HbxVersionInfo" unique_id=1224406445]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 10
+text = "/"
+
+[node name="LblGodotVersion" type="Label" parent="VersionInfo/TopRight/VBoxContainer/HbxVersionInfo" unique_id=859062119]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 10

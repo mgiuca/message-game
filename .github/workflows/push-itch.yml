@@ -1,0 +1,86 @@
+name: Deploy to Itch
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: 'Run ID of the build to deploy (found in the URL of the Build workflow run).'
+        required: true
+        type: number
+      channel_suffix:
+        description: 'Channel suffix (i.e. branch name).'
+        default: ''
+        type: choice
+        options:
+          - ''
+          - '-beta'
+          - '-demo'
+
+# TODO: Change EXPORT_NAME and ITCH_TARGET to the correct app name.
+env:
+  EXPORT_NAME: app-name
+  # Need to load BUTLER_API_KEY as a repository secret. Get the key from:
+  # https://itch.io/user/settings/api-keys (wharf).
+  BUTLER_API_KEY: ${{secrets.BUTLER_API_KEY}}
+  ITCH_TARGET: mgiuca/app-name
+
+permissions:
+  # Required to allow the download-artifacts to download from another workflow.
+  actions: read
+
+jobs:
+  push-itch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Download project version
+        uses: actions/download-artifact@v5
+        with:
+          name: project_version.txt
+          path: out
+          run-id: ${{inputs.run_id}}
+          github-token: ${{ github.token }}
+      - name: Download Linux build
+        uses: actions/download-artifact@v5
+        with:
+          name: ${{env.EXPORT_NAME}}-linux
+          path: out/linux
+          run-id: ${{inputs.run_id}}
+          github-token: ${{ github.token }}
+      - name: Download Windows build
+        uses: actions/download-artifact@v5
+        with:
+          name: ${{env.EXPORT_NAME}}-windows
+          path: out/windows
+          run-id: ${{inputs.run_id}}
+          github-token: ${{ github.token }}
+      - name: Download Web build
+        uses: actions/download-artifact@v5
+        with:
+          name: html
+          path: out/html
+          run-id: ${{inputs.run_id}}
+          github-token: ${{ github.token }}
+      - name: Cache Butler
+        id: cache-butler
+        uses: actions/cache@v4
+        with:
+          path: /tmp/butler
+          key: ${{runner.os}}-butler
+      - name: Download Itch.io butler
+        if: steps.cache-butler.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p /tmp/butler
+          cd /tmp/butler
+          curl -f -L -o butler.zip https://broth.itch.zone/butler/linux-amd64/LATEST/archive/default
+          unzip butler.zip
+          rm butler.zip
+          chmod +x butler
+          ./butler -V
+      - name: Upload to Itch.io
+        # Automatically uses BUTLER_API_KEY environment variable.
+        run: |
+          /tmp/butler/butler login
+          /tmp/butler/butler push out/linux ${ITCH_TARGET}:linux${{inputs.channel_suffix}} --userversion-file out/project_version.txt
+          /tmp/butler/butler push out/windows ${ITCH_TARGET}:windows${{inputs.channel_suffix}} --userversion-file out/project_version.txt
+          /tmp/butler/butler push out/html ${ITCH_TARGET}:web${{inputs.channel_suffix}} --userversion-file out/project_version.txt

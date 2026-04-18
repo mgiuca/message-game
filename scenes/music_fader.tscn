@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://th6kl3gsie3b"]
+
+[ext_resource type="Script" path="res://scenes/music_fader.gd" id="1_sblog"]
+[ext_resource type="Script" path="res://scenes/music_fader_player.gd" id="2_g20ni"]
+
+[node name="MusicFader" type="Node" unique_id=1629787139]
+script = ExtResource("1_sblog")
+
+[node name="Player1" type="AudioStreamPlayer" parent="." unique_id=1368082066]
+process_mode = 3
+bus = &"Music"
+script = ExtResource("2_g20ni")
+
+[node name="Player2" type="AudioStreamPlayer" parent="." unique_id=496980870]
+process_mode = 3
+bus = &"Music"
+script = ExtResource("2_g20ni")
