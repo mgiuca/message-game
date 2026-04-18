@@ -4,22 +4,18 @@ extends Node
 
 # List of levels, in order, by base filename (no dir or extension).
 const LEVEL_NAMES : Array[String] = [
-  'level1',
+  'image_decoder',
 ]
 
 # List of test levels that won't show up in the level picker or rotation.
 # Put them here to suppress the warning about a level not being in rotation.
 const TEST_LEVEL_NAMES = [
-  #'gym',
 ]
 
 # Mapping from level basename to display name. If the name is missing, the
 # game will display the basename with a warning.
 const LEVEL_DISPLAY_NAMES : Dictionary[String, String] = {
-  'level1': 'Level One',
-
-  # Levels not in the main rotation.
-  #'gym': 'Gym',
+  'image_decoder': 'Image Decoder',
 }
 
 var current_level : Level:
