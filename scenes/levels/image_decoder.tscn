@@ -53,3 +53,4 @@ layout_mode = 2
 text = "Confirm"
 
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/HBoxContainer/SldWidth" to="." method="_on_sld_width_value_changed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/BtnConfirm" to="." method="_on_btn_confirm_pressed"]
