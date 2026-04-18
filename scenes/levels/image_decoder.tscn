@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://dhouj103pnqy3"]
 
 [ext_resource type="PackedScene" uid="uid://tdgkmflrwhol" path="res://scenes/level.tscn" id="1_3olt6"]
-[ext_resource type="Texture2D" uid="uid://bjpktbq07lk8y" path="res://data/image.png" id="2_edpoh"]
 [ext_resource type="Script" uid="uid://dgkev8idh8elm" path="res://scenes/levels/image_decoder.gd" id="2_k6g3u"]
 
 [node name="ImageDecoder" unique_id=1748765888 instance=ExtResource("1_3olt6")]
@@ -24,9 +23,12 @@ layout_mode = 2
 
 [node name="ImageRect" type="TextureRect" parent="MarginContainer/VBoxContainer" index="1" unique_id=1618494502]
 unique_name_in_owner = true
+texture_filter = 1
+texture_repeat = 1
 layout_mode = 2
 size_flags_vertical = 3
-texture = ExtResource("2_edpoh")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" index="2" unique_id=1477906706]
 layout_mode = 2
