@@ -43,6 +43,7 @@ theme_override_font_sizes/font_size = 10
 
 [node name="DebugItems" type="VBoxContainer" parent="TopRight" unique_id=1685365465]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 

@@ -1,12 +1,17 @@
 [gd_scene format=3 uid="uid://tdgkmflrwhol"]
 
-[ext_resource type="Script" uid="uid://6el64wahmcuf" path="res://scenes/level.gd" id="1_j03b7"]
+[ext_resource type="Script" uid="uid://6el64wahmcuf" path="res://scenes/level.gd" id="1_w8frs"]
 [ext_resource type="PackedScene" uid="uid://c7js5gws2kjj5" path="res://scenes/ui/menu.tscn" id="3_8hwtq"]
 [ext_resource type="PackedScene" uid="uid://cj46p1qq7r6sp" path="res://scenes/ui/hud.tscn" id="4_epnyg"]
 
-[node name="Level" type="Node" unique_id=1161323817]
-script = ExtResource("1_j03b7")
-debug_info = true
+[node name="Level" type="Control" unique_id=1360869222]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w8frs")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=237925075]
 

@@ -1,5 +1,49 @@
 [gd_scene format=3 uid="uid://dhouj103pnqy3"]
 
 [ext_resource type="PackedScene" uid="uid://tdgkmflrwhol" path="res://scenes/level.tscn" id="1_3olt6"]
+[ext_resource type="Texture2D" uid="uid://bjpktbq07lk8y" path="res://data/image.png" id="2_edpoh"]
+[ext_resource type="Script" uid="uid://dgkev8idh8elm" path="res://scenes/levels/image_decoder.gd" id="2_k6g3u"]
 
-[node name="Level1" unique_id=1748765888 instance=ExtResource("1_3olt6")]
+[node name="ImageDecoder" unique_id=1748765888 instance=ExtResource("1_3olt6")]
+script = ExtResource("2_k6g3u")
+
+[node name="MarginContainer" type="MarginContainer" parent="." index="1" unique_id=336727265]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" index="0" unique_id=573164937]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer" index="0" unique_id=1456764152]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="ImageRect" type="TextureRect" parent="MarginContainer/VBoxContainer" index="1" unique_id=1618494502]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_edpoh")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" index="2" unique_id=1477906706]
+layout_mode = 2
+alignment = 1
+
+[node name="LblSize" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" index="0" unique_id=432660617]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+text = "100x100"
+clip_text = true
+
+[node name="HSlider" type="HSlider" parent="MarginContainer/VBoxContainer/HBoxContainer" index="1" unique_id=959909688]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="BtnConfirm" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" index="2" unique_id=181740838]
+layout_mode = 2
+text = "Confirm"

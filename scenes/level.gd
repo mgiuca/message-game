@@ -1,5 +1,5 @@
 class_name Level
-extends Node
+extends Control
 
 @onready var hud : HUD = $UI/HUD
 
