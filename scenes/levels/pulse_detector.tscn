@@ -93,6 +93,7 @@ columns = 2
 
 [node name="ChkPlayhead" type="CheckBox" parent="MarginContainer/VBoxContainer/GridContainer" index="0" unique_id=928771225]
 layout_mode = 2
+tooltip_text = "Left-click to set the play cursor"
 button_group = SubResource("ButtonGroup_44fsj")
 text = "Set cursor"
 
@@ -102,6 +103,7 @@ layout_mode = 2
 
 [node name="ChkPulseMode" type="CheckBox" parent="MarginContainer/VBoxContainer/GridContainer" index="2" unique_id=1831049988]
 layout_mode = 2
+tooltip_text = "Left click-and-drag to set the width between two pulses."
 button_group = SubResource("ButtonGroup_44fsj")
 text = "Tag pulse width"
 
@@ -112,6 +114,7 @@ text = "Pulse frequency"
 
 [node name="ChkZeroMode" type="CheckBox" parent="MarginContainer/VBoxContainer/GridContainer" index="4" unique_id=1626262893]
 layout_mode = 2
+tooltip_text = "Left click-and-drag to set the width between peaks of the LOWER frequency code."
 button_group = SubResource("ButtonGroup_44fsj")
 text = "Tag code #0 width"
 
@@ -122,6 +125,7 @@ text = "Code #0 frequency"
 
 [node name="ChkOneMode" type="CheckBox" parent="MarginContainer/VBoxContainer/GridContainer" index="6" unique_id=1287302970]
 layout_mode = 2
+tooltip_text = "Left click-and-drag to set the width between peaks of the HIGHER frequency code."
 button_group = SubResource("ButtonGroup_44fsj")
 text = "Tag code #1 width"
 
