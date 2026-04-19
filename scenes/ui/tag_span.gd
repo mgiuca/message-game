@@ -9,9 +9,6 @@ const LINE_WIDTH : float = 2.0
     color = value
     queue_redraw()
 
-func _ready() -> void:
-  pass # Replace with function body.
-
 func _draw() -> void:
   var canvas_size := get_rect().size
   draw_line(Vector2(0, 0.5) * canvas_size, Vector2(1, 0.5) * canvas_size, color, LINE_WIDTH, true)

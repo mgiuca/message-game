@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://ci77x2yl4osyx" path="res://scenes/levels/pulse_detector.gd" id="2_baup0"]
 [ext_resource type="Script" uid="uid://dpod4vx34s4q0" path="res://scenes/ui/waveform.gd" id="3_d7fx5"]
 [ext_resource type="Script" uid="uid://bwdl15u8rxu1q" path="res://scenes/ui/tag_span.gd" id="4_44fsj"]
+[ext_resource type="Script" uid="uid://difglo3751lq8" path="res://scenes/ui/vline.gd" id="5_ykfw7"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_ykfw7"]
 action = &"play_pause"
@@ -44,6 +45,7 @@ offset_left = 18.0
 offset_top = 68.0
 offset_right = 289.0
 offset_bottom = 77.0
+mouse_filter = 2
 script = ExtResource("4_44fsj")
 color = Color(0.6840591, 0.5480618, 0.90969914, 1)
 
@@ -53,6 +55,7 @@ offset_left = 80.0
 offset_top = 96.0
 offset_right = 351.0
 offset_bottom = 105.0
+mouse_filter = 2
 script = ExtResource("4_44fsj")
 color = Color(0.8669406, 0.50863284, 0.5708227, 1)
 
@@ -62,8 +65,22 @@ offset_left = 159.0
 offset_top = 96.0
 offset_right = 430.0
 offset_bottom = 105.0
+mouse_filter = 2
 script = ExtResource("4_44fsj")
 color = Color(0.48085666, 0.68702644, 0.5470203, 1)
+
+[node name="PlayHead" type="Control" parent="MarginContainer/VBoxContainer/TexWaveform" index="3" unique_id=1784792375]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -138.0
+offset_right = 12.0
+offset_bottom = 138.0
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("5_ykfw7")
+color = Color(0.92099476, 0.9209946, 0.9209946, 1)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" index="2" unique_id=1861525169]
 layout_mode = 2
@@ -83,38 +100,47 @@ text = "Confirm"
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer" index="3" unique_id=1021798430]
 layout_mode = 2
-text = "Select tagging mode:"
+text = "Select mode:"
 
 [node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer" index="4" unique_id=1849072487]
 layout_mode = 2
 columns = 2
 
-[node name="ChkPulseMode" type="CheckBox" parent="MarginContainer/VBoxContainer/GridContainer" index="0" unique_id=1831049988]
+[node name="ChkPlayhead" type="CheckBox" parent="MarginContainer/VBoxContainer/GridContainer" index="0" unique_id=928771225]
 layout_mode = 2
 button_group = SubResource("ButtonGroup_44fsj")
-text = "Pulse width"
+text = "Set cursor"
 
-[node name="LblPulseFreq" type="Label" parent="MarginContainer/VBoxContainer/GridContainer" index="1" unique_id=1610499473]
+[node name="LblBlank" type="Label" parent="MarginContainer/VBoxContainer/GridContainer" index="1" unique_id=1552509476]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ChkPulseMode" type="CheckBox" parent="MarginContainer/VBoxContainer/GridContainer" index="2" unique_id=1831049988]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_44fsj")
+text = "Tag pulse width"
+
+[node name="LblPulseFreq" type="Label" parent="MarginContainer/VBoxContainer/GridContainer" index="3" unique_id=1610499473]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Pulse frequency"
 
-[node name="ChkZeroMode" type="CheckBox" parent="MarginContainer/VBoxContainer/GridContainer" index="2" unique_id=1626262893]
+[node name="ChkZeroMode" type="CheckBox" parent="MarginContainer/VBoxContainer/GridContainer" index="4" unique_id=1626262893]
 layout_mode = 2
 button_group = SubResource("ButtonGroup_44fsj")
-text = "Code #0 width"
+text = "Tag code #0 width"
 
-[node name="LblZeroFreq" type="Label" parent="MarginContainer/VBoxContainer/GridContainer" index="3" unique_id=1909124387]
+[node name="LblZeroFreq" type="Label" parent="MarginContainer/VBoxContainer/GridContainer" index="5" unique_id=1909124387]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Code #0 frequency"
 
-[node name="ChkOneMode" type="CheckBox" parent="MarginContainer/VBoxContainer/GridContainer" index="4" unique_id=1287302970]
+[node name="ChkOneMode" type="CheckBox" parent="MarginContainer/VBoxContainer/GridContainer" index="6" unique_id=1287302970]
 layout_mode = 2
 button_group = SubResource("ButtonGroup_44fsj")
-text = "Code #1 width"
+text = "Tag code #1 width"
 
-[node name="LblOneFreq" type="Label" parent="MarginContainer/VBoxContainer/GridContainer" index="5" unique_id=1538547924]
+[node name="LblOneFreq" type="Label" parent="MarginContainer/VBoxContainer/GridContainer" index="7" unique_id=1538547924]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Code #1 frequency"
@@ -127,7 +153,8 @@ text = "Code #1 frequency"
 [connection signal="zoom_changed" from="MarginContainer/VBoxContainer/TexWaveform" to="." method="_on_tex_waveform_zoom_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/BtnPlayStop" to="." method="_on_btn_play_stop_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/BtnConfirm" to="." method="_on_btn_confirm_pressed"]
-[connection signal="toggled" from="MarginContainer/VBoxContainer/GridContainer/ChkPulseMode" to="." method="_on_chk_tagging_mode_toggled" binds= [0]]
-[connection signal="toggled" from="MarginContainer/VBoxContainer/GridContainer/ChkZeroMode" to="." method="_on_chk_tagging_mode_toggled" binds= [1]]
-[connection signal="toggled" from="MarginContainer/VBoxContainer/GridContainer/ChkOneMode" to="." method="_on_chk_tagging_mode_toggled" binds= [2]]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/GridContainer/ChkPlayhead" to="." method="_on_chk_tagging_mode_toggled" binds= [0]]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/GridContainer/ChkPulseMode" to="." method="_on_chk_tagging_mode_toggled" binds= [1]]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/GridContainer/ChkZeroMode" to="." method="_on_chk_tagging_mode_toggled" binds= [2]]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/GridContainer/ChkOneMode" to="." method="_on_chk_tagging_mode_toggled" binds= [3]]
 [connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
