@@ -53,8 +53,10 @@ color = Color(0.92099476, 0.9209946, 0.9209946, 1)
 
 [node name="HbxTuning" type="HBoxContainer" parent="MarginContainer/VBoxContainer" index="2" unique_id=1566157631]
 layout_mode = 2
+theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HbxTuning" index="0" unique_id=261726534]
+[node name="LblFilterFreq" type="Label" parent="MarginContainer/VBoxContainer/HbxTuning" index="0" unique_id=261726534]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Tuning frequency:"
 

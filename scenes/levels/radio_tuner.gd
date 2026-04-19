@@ -25,9 +25,11 @@ var playhead_time : float:
 @onready var audio_stream : AudioStreamSynchronized = audio_stream_player.stream
 
 @onready var playhead : VLine = %Waveform/PlayHead
+@onready var lbl_filter_freq : Label = %LblFilterFreq
 
 var filter_frequency : float = 50:
   set(value):
+    filter_frequency = value
     update_filter_frequency()
 
 # Called when the node enters the scene tree for the first time.
