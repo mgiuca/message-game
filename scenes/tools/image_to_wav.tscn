@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://4f1xon1pko4r"]
+
+[ext_resource type="Script" uid="uid://d36jkipgd5jr3" path="res://scenes/tools/image_to_wav.gd" id="1_xly42"]
+
+[node name="ImageToWav" type="Control" unique_id=205853887]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xly42")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1272969417]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LblImage" type="Label" parent="VBoxContainer" unique_id=1922981416]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=2036559170]
+layout_mode = 2
+
+[node name="BtnConvert" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=2097928918]
+layout_mode = 2
+text = "Convert"
+
+[node name="BtnSave" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=289251773]
+layout_mode = 2
+text = "Save"
+
+[node name="LblStatus" type="Label" parent="VBoxContainer" unique_id=450902256]
+unique_name_in_owner = true
+layout_mode = 2
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/BtnConvert" to="." method="_on_btn_convert_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/BtnSave" to="." method="_on_btn_save_pressed"]
