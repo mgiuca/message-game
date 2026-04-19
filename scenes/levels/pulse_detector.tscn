@@ -52,9 +52,9 @@ color = Color(0.6840591, 0.5480618, 0.90969914, 1)
 [node name="TagSpanP2PZero" type="Control" parent="MarginContainer/VBoxContainer/TexWaveform" index="1" unique_id=1704646954]
 anchors_preset = 0
 offset_left = 80.0
-offset_top = 96.0
+offset_top = 90.0
 offset_right = 351.0
-offset_bottom = 105.0
+offset_bottom = 99.0
 mouse_filter = 2
 script = ExtResource("4_44fsj")
 color = Color(0.8669406, 0.50863284, 0.5708227, 1)
@@ -62,9 +62,9 @@ color = Color(0.8669406, 0.50863284, 0.5708227, 1)
 [node name="TagSpanP2POne" type="Control" parent="MarginContainer/VBoxContainer/TexWaveform" index="2" unique_id=528610833]
 anchors_preset = 0
 offset_left = 159.0
-offset_top = 96.0
+offset_top = 90.0
 offset_right = 430.0
-offset_bottom = 105.0
+offset_bottom = 99.0
 mouse_filter = 2
 script = ExtResource("4_44fsj")
 color = Color(0.48085666, 0.68702644, 0.5470203, 1)
