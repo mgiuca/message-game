@@ -7,4 +7,4 @@ Play with a mouse. Sound is highly recommended (while not strictly required to s
 # Links
 
 * [Itch.io page](https://mgiuca.itch.io/the-message)
-* [Ludum Dare 59 entry](https://ldjam.com/events/ludum-dare/59/$429636)
+* [Ludum Dare 59 entry](https://ldjam.com/events/ludum-dare/59/the-message)
