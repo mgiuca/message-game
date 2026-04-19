@@ -77,15 +77,30 @@ selected = 0
 item_count = 3
 popup/item_0/text = "Pulse width"
 popup/item_0/id = 0
-popup/item_1/text = "Peak-to-peak (zero)"
+popup/item_1/text = "Peak-to-peak (Code #0)"
 popup/item_1/id = 1
-popup/item_2/text = "Peak-to-peak (one)"
+popup/item_2/text = "Peak-to-peak (Code #1)"
 popup/item_2/id = 2
 
 [node name="BtnConfirm" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" index="3" unique_id=71189766]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Confirm"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" index="3" unique_id=627739720]
+layout_mode = 2
+
+[node name="LblPulseFreq" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2" index="0" unique_id=1610499473]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="LblZeroFreq" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2" index="1" unique_id=1909124387]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="LblOneFreq" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2" index="2" unique_id=1538547924]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="2" unique_id=189053425]
 

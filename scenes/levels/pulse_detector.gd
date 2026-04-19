@@ -16,11 +16,23 @@ var audio_stream : AudioStreamWAV
 @onready var tag_span_p2p_zero : TagSpan = %TexWaveform/TagSpanP2PZero
 @onready var tag_span_p2p_one : TagSpan = %TexWaveform/TagSpanP2POne
 
+@onready var lbl_pulse_freq : Label = %LblPulseFreq
+@onready var lbl_zero_freq : Label = %LblZeroFreq
+@onready var lbl_one_freq : Label = %LblOneFreq
+
 # Note: start is not necessarily before end; start is just where you started
 # clicking and end is where you finished clicking.
 class TagRange extends RefCounted:
   var start : float
   var end : float
+
+  var width : float:
+    get():
+      return absf(end - start)
+
+  var freq : float:
+    get():
+      return 1 / width
 
 @onready var pulse_width_range := TagRange.new()
 @onready var p2p_zero_range := TagRange.new()
@@ -85,6 +97,10 @@ func update_tags() -> void:
   update_tag(pulse_width_range, tag_span_pulse_width)
   update_tag(p2p_zero_range, tag_span_p2p_zero)
   update_tag(p2p_one_range, tag_span_p2p_one)
+
+  lbl_pulse_freq.text = 'Pulse frequency: %.0f Hz' % pulse_width_range.freq
+  lbl_zero_freq.text = 'Code #0 frequency: %.0f Hz' % p2p_zero_range.freq
+  lbl_one_freq.text = 'Code #1 frequency: %.0f Hz' % p2p_one_range.freq
 
 func update_tag(time_range: TagRange, span: TagSpan) -> void:
   var start_x := tex_waveform.t_to_x(time_range.start)
