@@ -63,8 +63,6 @@ func draw_wavs(streams: Array[AudioStreamWAV], volumes: PackedFloat32Array) -> v
     push_error('volumes != streams')
     return
 
-  print(volumes)
-
   var datas : Array[PackedByteArray]
   for stream in streams:
     datas.append(stream.data)
