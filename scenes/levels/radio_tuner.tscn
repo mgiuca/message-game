@@ -9,7 +9,7 @@
 action = &"play_pause"
 pressed = true
 
-[sub_resource type="Shortcut" id="Shortcut_wvbfs"]
+[sub_resource type="Shortcut" id="Shortcut_12t0g"]
 events = [SubResource("InputEventAction_ykfw7")]
 
 [node name="RadioTuner" unique_id=1360869222 instance=ExtResource("1_irbbj")]
@@ -30,13 +30,13 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="Waveform" type="Control" parent="MarginContainer/VBoxContainer" index="1" unique_id=1370171319]
+[node name="Waveform" type="Control" parent="MarginContainer/VBoxContainer" index="1" unique_id=1987058582]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("3_ncdmf")
 
-[node name="PlayHead" type="Control" parent="MarginContainer/VBoxContainer/Waveform" index="0" unique_id=720787139]
+[node name="PlayHead" type="Control" parent="MarginContainer/VBoxContainer/Waveform" index="0" unique_id=1784792375]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -49,22 +49,14 @@ mouse_filter = 2
 script = ExtResource("4_wvbfs")
 color = Color(0.92099476, 0.9209946, 0.9209946, 1)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" index="2" unique_id=875890818]
+[node name="HbxTuning" type="HBoxContainer" parent="MarginContainer/VBoxContainer" index="2" unique_id=1566157631]
 layout_mode = 2
 
-[node name="BtnPlayStop" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" index="0" unique_id=34689256]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(70, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-shortcut = SubResource("Shortcut_wvbfs")
-text = "Play"
-
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" index="1" unique_id=332318623]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HbxTuning" index="0" unique_id=261726534]
 layout_mode = 2
 text = "Tuning frequency:"
 
-[node name="SldTuneFreq" type="HSlider" parent="MarginContainer/VBoxContainer/HBoxContainer" index="2" unique_id=1303130098]
+[node name="SldTuneFreq" type="HSlider" parent="MarginContainer/VBoxContainer/HbxTuning" index="1" unique_id=33480148]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -72,13 +64,35 @@ min_value = 50.0
 max_value = 1000.0
 value = 50.0
 
-[node name="BtnConfirm" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" index="3" unique_id=1438555725]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" index="3" unique_id=1861525169]
 layout_mode = 2
-size_flags_horizontal = 8
+
+[node name="BtnPlayStop" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" index="0" unique_id=1983341254]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+shortcut = SubResource("Shortcut_12t0g")
+text = "Play"
+
+[node name="ChkOnlyVisible" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer" index="1" unique_id=1475889869]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Loops over just the visible part of the waveform, rather than playing the whole thing."
+button_pressed = true
+text = "Only play visible section"
+
+[node name="BtnConfirm" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" index="2" unique_id=71189766]
+layout_mode = 2
+size_flags_horizontal = 10
 text = "Confirm"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="2" unique_id=159637340]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="2" unique_id=189053425]
 
+[connection signal="continue_drag" from="MarginContainer/VBoxContainer/Waveform" to="." method="_on_waveform_continue_drag"]
+[connection signal="start_drag" from="MarginContainer/VBoxContainer/Waveform" to="." method="_on_waveform_start_drag"]
+[connection signal="zoom_changed" from="MarginContainer/VBoxContainer/Waveform" to="." method="_on_waveform_zoom_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/HbxTuning/SldTuneFreq" to="." method="_on_sld_tune_freq_value_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/BtnPlayStop" to="." method="_on_btn_play_stop_pressed"]
-[connection signal="value_changed" from="MarginContainer/VBoxContainer/HBoxContainer/SldTuneFreq" to="." method="_on_sld_tune_freq_value_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/BtnConfirm" to="." method="_on_btn_confirm_pressed"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
