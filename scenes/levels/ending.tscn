@@ -25,7 +25,7 @@ alignment = 1
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 bbcode_enabled = true
-text = "The message comes from the third planet of a nearby star system. We have learned much but were unable to decipher the strange writing.
+text = "We know the message comes from the [color=sky_blue]third planet[/color] of the nearby star system. We have learned much but were unable to decipher the strange writing.
 
 The choice is up to you."
 fit_content = true
