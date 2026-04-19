@@ -1,7 +1,7 @@
 extends Level
 
-# Percent tolerance for getting the correct answer.
-const VERIFY_TOLERANCE_PCT : float = 1.15
+# How many Hz from the correct frequency to win.
+const VERIFY_TOLERANCE_RANGE : float = 2
 
 const SIGNAL_FREQUENCY : float = 673
 # At this many Hz from the signal frequency, its volume will (just) be reduced
@@ -94,7 +94,10 @@ func update_play_button_text() -> void:
   btn_play_stop.text = 'Pause' if playing else 'Play'
 
 func _on_btn_confirm_pressed() -> void:
-  # TODO: Check
+  if absf(filter_frequency - SIGNAL_FREQUENCY) > VERIFY_TOLERANCE_RANGE:
+    print('There is no non-repetitive signal at that frequency')
+    return
+
   LevelManager.switch_to_next_level_or_quit()
 
 func play() -> void:
