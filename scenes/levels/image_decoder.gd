@@ -67,7 +67,7 @@ func _on_btn_confirm_pressed() -> void:
   if image_width == source_image.get_width():
     LevelManager.switch_to_next_level_or_quit()
   else:
-    set_error("That doesn't look quite right")
+    set_error("That doesn't look like a meaningful picture")
 
 func set_error(message: String) -> void:
   lbl_error.text = message
