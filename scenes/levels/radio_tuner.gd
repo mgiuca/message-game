@@ -10,7 +10,7 @@ var playing : bool = false:
 
 var source_image : Image = load('res://data/image.png')
 var signal_audio_stream : AudioStreamWAV
-var audio_stream : AudioStreamWAV
+var noise_audio_stream : AudioStreamWAV
 
 var playhead_time : float:
   set(value):
@@ -22,6 +22,7 @@ var playhead_time : float:
 @onready var chk_only_visible : CheckBox = %ChkOnlyVisible
 @onready var waveform : Waveform = %Waveform
 @onready var audio_stream_player : AudioStreamPlayer = $AudioStreamPlayer
+@onready var audio_stream : AudioStreamSynchronized = audio_stream_player.stream
 
 @onready var playhead : VLine = %Waveform/PlayHead
 
@@ -34,14 +35,21 @@ func _ready() -> void:
   super._ready()
 
   signal_audio_stream = PulseGenerator.generate_audio_from_image(source_image)
-  audio_stream_player.stream = audio_stream
+  noise_audio_stream = PulseGenerator.generate_audio_from_noise(signal_audio_stream.get_length())
   waveform.audio_stream = audio_stream
+
+  set_up_streams()
 
   update_playhead()
 
   update_play_button_text()
 
   update_filter_frequency()
+
+func set_up_streams() -> void:
+  audio_stream.stream_count = 2
+  audio_stream.set_sync_stream(0, noise_audio_stream)
+  audio_stream.set_sync_stream(1, signal_audio_stream)
 
 func _process(_delta: float) -> void:
   if audio_stream_player.playing and not audio_stream_player.stream_paused:
@@ -57,7 +65,6 @@ func update_playhead() -> void:
   playhead.position.x = waveform.t_to_x(playhead_time)
 
 func update_filter_frequency() -> void:
-  audio_stream = signal_audio_stream # TODO
   audio_stream_player.stream = audio_stream
   waveform.audio_stream = audio_stream
 

@@ -12,6 +12,8 @@ pressed = true
 [sub_resource type="Shortcut" id="Shortcut_12t0g"]
 events = [SubResource("InputEventAction_ykfw7")]
 
+[sub_resource type="AudioStreamSynchronized" id="AudioStreamSynchronized_wvbfs"]
+
 [node name="RadioTuner" unique_id=1360869222 instance=ExtResource("1_irbbj")]
 script = ExtResource("2_irbbj")
 
@@ -88,6 +90,7 @@ size_flags_horizontal = 10
 text = "Confirm"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="2" unique_id=189053425]
+stream = SubResource("AudioStreamSynchronized_wvbfs")
 
 [connection signal="continue_drag" from="MarginContainer/VBoxContainer/Waveform" to="." method="_on_waveform_continue_drag"]
 [connection signal="start_drag" from="MarginContainer/VBoxContainer/Waveform" to="." method="_on_waveform_start_drag"]

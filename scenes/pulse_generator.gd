@@ -61,7 +61,7 @@ static func generate_audio_from_noise(duration: float) -> AudioStreamWAV:
   var num_samples := roundi(WAV_MIX_RATE * duration)
   data.resize(num_samples)
   for i in num_samples:
-    data[i] = randi_range(0, 255)
+    data.encode_s8(i, clampi(roundi(randf_range(-128, 127) * AMPLITUDE), -128, 127))
 
   audio_stream.data = data
   audio_stream.loop_end = data.size() - 1

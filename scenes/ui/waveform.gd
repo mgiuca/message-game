@@ -6,8 +6,9 @@ const ZOOM_TICK_PERCENT : float = 1.1
 const MIN_DURATION : float = 0.005
 const MAX_DURATION : float = 5.0
 
-## The audio to display.
-@export var audio_stream : AudioStreamWAV:
+## The audio to display. Must be either AudioStreamWAV or
+## AudioStreamSynchronized featuring WAVs as the sub-streams.
+@export var audio_stream : AudioStream:
   set(value):
     audio_stream = value
     queue_redraw()
@@ -46,19 +47,58 @@ func _draw() -> void:
   if not audio_stream:
     return
 
-  var mix_rate := audio_stream.mix_rate
-  var data := audio_stream.data
+  if audio_stream is AudioStreamWAV:
+    draw_wavs([audio_stream], [1])
+  elif audio_stream is AudioStreamSynchronized:
+    draw_wavs(sync_get_wavs(audio_stream as AudioStreamSynchronized),
+              sync_get_volumes(audio_stream as AudioStreamSynchronized))
+  else:
+    push_error('Stream is not WAV or Sync')
+
+func draw_wavs(streams: Array[AudioStreamWAV], volumes: PackedFloat32Array) -> void:
+  if streams.is_empty():
+    push_error('Stream has no sub-streams')
+    return
+  if volumes.size() != streams.size():
+    push_error('volumes != streams')
+    return
+
+  print(volumes)
+
+  var datas : Array[PackedByteArray]
+  for stream in streams:
+    datas.append(stream.data)
+
+  var mix_rate := streams[0].mix_rate
+  var num_samples := streams[0].data.size()
   var points : PackedVector2Array
   var canvas_size := get_rect().size
-  var st := clampi(roundi(start_time * mix_rate), 0, data.size() - 1)
-  var et := clampi(roundi(end_time * mix_rate), 0, data.size() - 1)
+  var st := clampi(roundi(start_time * mix_rate), 0, num_samples - 1)
+  var et := clampi(roundi(end_time * mix_rate), 0, num_samples - 1)
   for i in range(st, et):
-    var sample := data.decode_s8(i)
-    var percent_sample := (float(sample) / 256.0) + 0.5
+    var sample : float = 0
+    for j in streams.size():
+      sample += float(datas[j].decode_s8(i)) / 128.0 * volumes[j]
+    sample = clampf(sample, -1, 1)
+    var percent_sample := sample * 0.5 + 0.5
     var percent_time := float(i - st) / float(et - st)
     points.append(Vector2(percent_time, percent_sample) * canvas_size)
   const LINE_WIDTH = 1.0
   draw_polyline(points, Color.LIGHT_BLUE, LINE_WIDTH, true)
+
+func sync_get_wavs(stream: AudioStreamSynchronized) -> Array[AudioStreamWAV]:
+  var result : Array[AudioStreamWAV]
+  for i in stream.stream_count:
+    result.append(stream.get_sync_stream(i))
+  return result
+
+## Returns the volumes of each sub-stream, in linear (not db). 1.0 is therefore
+## the full volume.
+func sync_get_volumes(stream: AudioStreamSynchronized) -> PackedFloat32Array:
+  var result : PackedFloat32Array
+  for i in stream.stream_count:
+    result.append(db_to_linear(stream.get_sync_stream_volume(i)))
+  return result
 
 func _on_gui_input(event: InputEvent) -> void:
   if event is InputEventMouseButton:
