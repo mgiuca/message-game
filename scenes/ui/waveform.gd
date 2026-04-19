@@ -24,6 +24,11 @@ const MAX_DURATION : float = 5.0
     end_time = clampf(value, 0.0, audio_stream.get_length())
     queue_redraw()
 
+# For middle-mouse scroll drag.
+var scrolling : bool = false
+var scroll_start_t : float
+
+# Only for left-mouse / external drag (see [member scrolling]).
 var dragging : bool = false
 var drag_last_position : Vector2
 
@@ -71,15 +76,27 @@ func _on_gui_input(event: InputEvent) -> void:
       elif dragging:
         end_drag.emit(x_to_t(mouse_event.position.x))
         dragging = false
+    elif mouse_event.button_index == MOUSE_BUTTON_MIDDLE or mouse_event.button_index == MOUSE_BUTTON_RIGHT:
+      scrolling = mouse_event.is_pressed()
+      if scrolling:
+        scroll_start_t = x_to_t(mouse_event.position.x)
   elif event is InputEventMouseMotion:
     var mouse_event := event as InputEventMouseMotion
     if dragging:
       continue_drag.emit(x_to_t(mouse_event.position.x))
       drag_last_position = mouse_event.position
+    elif scrolling:
+      # Change start_time such that scroll_start_t is at position x.
+      var duration := end_time - start_time
+      var t_at_x := (mouse_event.position.x / size.x) * duration
+      start_time = scroll_start_t - t_at_x
+      end_time = start_time + duration
+      zoom_changed.emit(start_time, end_time)
 
 func _on_mouse_exited() -> void:
   end_drag.emit(x_to_t(drag_last_position.x))
   dragging = false
+  scrolling = false
 
 func x_to_t(x: float) -> float:
   return (x / size.x) * (end_time - start_time) + start_time
