@@ -11,9 +11,9 @@ const WAV_STEREO : bool = false
 # Encoding constants.
 
 ## Length of each pulse (s). This includes both the active and gap period.
-const PULSE_LENGTH : float = 0.01
+const PULSE_LENGTH : float = 0.05
 ## Percentage of the pulse that is active.
-const DUTY_CYCLE : float = 0.66
+const DUTY_CYCLE : float = 0.5
 ## Total amplitude (0-1) where 1.0 means full blast values.
 const AMPLITUDE : float = 0.5
 ## Frequency (Hz) of the zero pulse.
@@ -35,9 +35,15 @@ static func generate_audio_from_image(image: Image) -> AudioStreamWAV:
   var pulse_active_samples : int = roundi(pulse_length_samples * DUTY_CYCLE)
   assert(pulse_active_samples <= pulse_length_samples)
   var pulse_inactive_samples : int = pulse_length_samples - pulse_active_samples
-  data.resize(image.get_data_size() * pulse_length_samples)
 
-  produce_sine_wave(data, 0, data.size(), FREQ_ONE)
+  var source_data := image.get_data()
+  data.resize(source_data.size() * pulse_length_samples)
+  for i in source_data.size():
+    var start_sample := i * pulse_length_samples
+    var freq := FREQ_ONE if source_data[i] > 127 else FREQ_ZERO
+    produce_sine_wave(data, start_sample, pulse_active_samples, freq)
+    if pulse_inactive_samples > 0:
+      produce_zeroes(data, start_sample + pulse_active_samples, pulse_inactive_samples)
 
   audio_stream.data = data
   return audio_stream
@@ -50,3 +56,10 @@ static func produce_sine_wave(buffer: PackedByteArray, start_idx : int,
     var t := float(i - start_idx) / WAV_MIX_RATE
     var value := sin(TAU * freq * t) * AMPLITUDE
     buffer.encode_s8(i, clampi(roundi(value * 127), -128, 127))
+
+static func produce_zeroes(buffer: PackedByteArray, start_idx : int,
+                           length: int) -> void:
+  assert(start_idx + length <= buffer.size())
+
+  for i in range(start_idx, start_idx + length):
+    buffer.encode_s8(i, 0)
