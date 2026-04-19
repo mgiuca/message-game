@@ -15,6 +15,7 @@ var playhead_time : float:
       update_playhead()
 
 @onready var btn_play_stop : Button = %BtnPlayStop
+@onready var chk_only_visible : CheckBox = %ChkOnlyVisible
 @onready var tex_waveform : Waveform = %TexWaveform
 @onready var audio_stream_player : AudioStreamPlayer = $AudioStreamPlayer
 
@@ -63,6 +64,11 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
   if audio_stream_player.playing and not audio_stream_player.stream_paused:
+    if chk_only_visible.button_pressed:
+      var t := audio_stream_player.get_playback_position()
+      if t < tex_waveform.start_time or t > tex_waveform.end_time:
+        audio_stream_player.seek(tex_waveform.start_time)
+
     # Invalid when not playing.
     playhead_time = audio_stream_player.get_playback_position()
 
