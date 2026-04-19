@@ -19,13 +19,13 @@ var playhead_time : float:
 
 @onready var btn_play_stop : Button = %BtnPlayStop
 @onready var chk_only_visible : CheckBox = %ChkOnlyVisible
-@onready var tex_waveform : Waveform = %TexWaveform
+@onready var waveform : Waveform = %Waveform
 @onready var audio_stream_player : AudioStreamPlayer = $AudioStreamPlayer
 
-@onready var tag_span_pulse_width : TagSpan = %TexWaveform/TagSpanPulseWidth
-@onready var tag_span_p2p_zero : TagSpan = %TexWaveform/TagSpanP2PZero
-@onready var tag_span_p2p_one : TagSpan = %TexWaveform/TagSpanP2POne
-@onready var playhead : VLine = %TexWaveform/PlayHead
+@onready var tag_span_pulse_width : TagSpan = %Waveform/TagSpanPulseWidth
+@onready var tag_span_p2p_zero : TagSpan = %Waveform/TagSpanP2PZero
+@onready var tag_span_p2p_one : TagSpan = %Waveform/TagSpanP2POne
+@onready var playhead : VLine = %Waveform/PlayHead
 
 @onready var lbl_pulse_freq : Label = %LblPulseFreq
 @onready var lbl_zero_freq : Label = %LblZeroFreq
@@ -57,7 +57,7 @@ func _ready() -> void:
 
   audio_stream = PulseGenerator.generate_audio_from_image(source_image)
   audio_stream_player.stream = audio_stream
-  tex_waveform.audio_stream = audio_stream
+  waveform.audio_stream = audio_stream
 
   update_playhead()
 
@@ -69,14 +69,14 @@ func _process(_delta: float) -> void:
   if audio_stream_player.playing and not audio_stream_player.stream_paused:
     if chk_only_visible.button_pressed:
       var t := audio_stream_player.get_playback_position()
-      if t < tex_waveform.start_time or t > tex_waveform.end_time:
-        audio_stream_player.seek(tex_waveform.start_time)
+      if t < waveform.start_time or t > waveform.end_time:
+        audio_stream_player.seek(waveform.start_time)
 
     # Invalid when not playing.
     playhead_time = audio_stream_player.get_playback_position()
 
 func update_playhead() -> void:
-  playhead.position.x = tex_waveform.t_to_x(playhead_time)
+  playhead.position.x = waveform.t_to_x(playhead_time)
 
 func seek(time: float) -> void:
   if audio_stream_player.playing and not audio_stream_player.stream_paused:
@@ -129,7 +129,7 @@ func _on_btn_play_stop_pressed() -> void:
 func _on_audio_stream_player_finished() -> void:
   playing = false
 
-func _on_tex_waveform_start_drag(time: float) -> void:
+func _on_waveform_start_drag(time: float) -> void:
   if selected_tag_range == null:
     seek(time)
     return
@@ -138,14 +138,14 @@ func _on_tex_waveform_start_drag(time: float) -> void:
   selected_tag_range.end = time
   update_tags()
 
-func _on_tex_waveform_end_drag(time: float) -> void:
+func _on_waveform_end_drag(time: float) -> void:
   if selected_tag_range == null:
     return
 
   selected_tag_range.end = time
   update_tags()
 
-func _on_tex_waveform_continue_drag(time: float) -> void:
+func _on_waveform_continue_drag(time: float) -> void:
   if selected_tag_range == null:
     seek(time)
     return
@@ -153,7 +153,7 @@ func _on_tex_waveform_continue_drag(time: float) -> void:
   selected_tag_range.end = time
   update_tags()
 
-func _on_tex_waveform_zoom_changed(_start_time: float, _end_time: float) -> void:
+func _on_waveform_zoom_changed(_start_time: float, _end_time: float) -> void:
   update_tags()
 
 func update_tags() -> void:
@@ -166,8 +166,8 @@ func update_tags() -> void:
   lbl_one_freq.text = 'Code #1 frequency: %.0f Hz' % p2p_one_range.freq
 
 func update_tag(time_range: TagRange, span: TagSpan) -> void:
-  var start_x := tex_waveform.t_to_x(time_range.start)
-  var end_x := tex_waveform.t_to_x(time_range.end)
+  var start_x := waveform.t_to_x(time_range.start)
+  var end_x := waveform.t_to_x(time_range.end)
   if start_x > end_x:
     var temp := start_x
     start_x = end_x
