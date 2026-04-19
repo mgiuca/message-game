@@ -5,6 +5,8 @@
 [ext_resource type="Script" uid="uid://dpod4vx34s4q0" path="res://scenes/ui/waveform.gd" id="3_d7fx5"]
 [ext_resource type="Script" uid="uid://bwdl15u8rxu1q" path="res://scenes/ui/tag_span.gd" id="4_44fsj"]
 
+[sub_resource type="ButtonGroup" id="ButtonGroup_44fsj"]
+
 [node name="PulseDetector" unique_id=1360869222 instance=ExtResource("1_ybs3c")]
 script = ExtResource("2_baup0")
 
@@ -66,41 +68,48 @@ layout_mode = 2
 size_flags_horizontal = 0
 text = "Play"
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" index="1" unique_id=2068937420]
-layout_mode = 2
-size_flags_horizontal = 0
-text = "Tagging mode:"
-
-[node name="OptTagMode" type="OptionButton" parent="MarginContainer/VBoxContainer/HBoxContainer" index="2" unique_id=1300768293]
-layout_mode = 2
-selected = 0
-item_count = 3
-popup/item_0/text = "Pulse width"
-popup/item_0/id = 0
-popup/item_1/text = "Peak-to-peak (Code #0)"
-popup/item_1/id = 1
-popup/item_2/text = "Peak-to-peak (Code #1)"
-popup/item_2/id = 2
-
-[node name="BtnConfirm" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" index="3" unique_id=71189766]
+[node name="BtnConfirm" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" index="1" unique_id=71189766]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Confirm"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" index="3" unique_id=627739720]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" index="3" unique_id=1021798430]
 layout_mode = 2
+text = "Select tagging mode:"
 
-[node name="LblPulseFreq" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2" index="0" unique_id=1610499473]
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer" index="4" unique_id=1849072487]
+layout_mode = 2
+columns = 2
+
+[node name="ChkPulseMode" type="CheckBox" parent="MarginContainer/VBoxContainer/GridContainer" index="0" unique_id=1831049988]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_44fsj")
+text = "Pulse width"
+
+[node name="LblPulseFreq" type="Label" parent="MarginContainer/VBoxContainer/GridContainer" index="1" unique_id=1610499473]
 unique_name_in_owner = true
 layout_mode = 2
+text = "Pulse frequency"
 
-[node name="LblZeroFreq" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2" index="1" unique_id=1909124387]
+[node name="ChkZeroMode" type="CheckBox" parent="MarginContainer/VBoxContainer/GridContainer" index="2" unique_id=1626262893]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_44fsj")
+text = "Code #0 width"
+
+[node name="LblZeroFreq" type="Label" parent="MarginContainer/VBoxContainer/GridContainer" index="3" unique_id=1909124387]
 unique_name_in_owner = true
 layout_mode = 2
+text = "Code #0 frequency"
 
-[node name="LblOneFreq" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2" index="2" unique_id=1538547924]
+[node name="ChkOneMode" type="CheckBox" parent="MarginContainer/VBoxContainer/GridContainer" index="4" unique_id=1287302970]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_44fsj")
+text = "Code #1 width"
+
+[node name="LblOneFreq" type="Label" parent="MarginContainer/VBoxContainer/GridContainer" index="5" unique_id=1538547924]
 unique_name_in_owner = true
 layout_mode = 2
+text = "Code #1 frequency"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="2" unique_id=189053425]
 
@@ -109,6 +118,8 @@ layout_mode = 2
 [connection signal="start_drag" from="MarginContainer/VBoxContainer/TexWaveform" to="." method="_on_tex_waveform_start_drag"]
 [connection signal="zoom_changed" from="MarginContainer/VBoxContainer/TexWaveform" to="." method="_on_tex_waveform_zoom_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/BtnPlayStop" to="." method="_on_btn_play_stop_pressed"]
-[connection signal="item_selected" from="MarginContainer/VBoxContainer/HBoxContainer/OptTagMode" to="." method="_on_opt_tag_mode_item_selected"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/BtnConfirm" to="." method="_on_btn_confirm_pressed"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/GridContainer/ChkPulseMode" to="." method="_on_chk_tagging_mode_toggled" binds= [0]]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/GridContainer/ChkZeroMode" to="." method="_on_chk_tagging_mode_toggled" binds= [1]]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/GridContainer/ChkOneMode" to="." method="_on_chk_tagging_mode_toggled" binds= [2]]
 [connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]

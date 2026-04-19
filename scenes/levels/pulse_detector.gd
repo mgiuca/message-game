@@ -49,8 +49,8 @@ func _ready() -> void:
   tex_waveform.audio_stream = audio_stream
 
   update_play_button_text()
-
-  _on_opt_tag_mode_item_selected(0)
+  ($MarginContainer/VBoxContainer/GridContainer/ChkPulseMode as CheckBox).button_pressed = true
+  update_tags()
 
 func update_play_button_text() -> void:
   btn_play_stop.text = 'Pause' if playing else 'Play'
@@ -112,7 +112,9 @@ func update_tag(time_range: TagRange, span: TagSpan) -> void:
   span.position.x = start_x
   span.size.x = end_x - start_x
 
-func _on_opt_tag_mode_item_selected(index: int) -> void:
+func _on_chk_tagging_mode_toggled(toggled_on: bool, index: int) -> void:
+  if not toggled_on:
+    return
   match index:
     0:
       selected_tag_range = pulse_width_range
