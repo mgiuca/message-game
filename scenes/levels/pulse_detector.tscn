@@ -5,6 +5,13 @@
 [ext_resource type="Script" uid="uid://dpod4vx34s4q0" path="res://scenes/ui/waveform.gd" id="3_d7fx5"]
 [ext_resource type="Script" uid="uid://bwdl15u8rxu1q" path="res://scenes/ui/tag_span.gd" id="4_44fsj"]
 
+[sub_resource type="InputEventAction" id="InputEventAction_ykfw7"]
+action = &"play_pause"
+pressed = true
+
+[sub_resource type="Shortcut" id="Shortcut_12t0g"]
+events = [SubResource("InputEventAction_ykfw7")]
+
 [sub_resource type="ButtonGroup" id="ButtonGroup_44fsj"]
 
 [node name="PulseDetector" unique_id=1360869222 instance=ExtResource("1_ybs3c")]
@@ -66,6 +73,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(70, 0)
 layout_mode = 2
 size_flags_horizontal = 0
+shortcut = SubResource("Shortcut_12t0g")
 text = "Play"
 
 [node name="BtnConfirm" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" index="1" unique_id=71189766]
