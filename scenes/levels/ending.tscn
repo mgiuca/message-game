@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://ct62ue3qp5xr1"]
+
+[ext_resource type="PackedScene" uid="uid://tdgkmflrwhol" path="res://scenes/level.tscn" id="1_ftwiq"]
+[ext_resource type="Script" uid="uid://htbydkr8xsv8" path="res://scenes/levels/ending.gd" id="2_vsvsc"]
+
+[node name="Level" unique_id=1360869222 instance=ExtResource("1_ftwiq")]
+script = ExtResource("2_vsvsc")
+
+[node name="MarginContainer" type="MarginContainer" parent="." index="1" unique_id=407188153]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" index="0" unique_id=402916638]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer" index="0" unique_id=1490438957]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+bbcode_enabled = true
+text = "The message comes from the third planet of a nearby star system. We have learned much but were unable to decipher the strange writing.
+
+The choice is up to you."
+fit_content = true
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" index="1" unique_id=426055276]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="BtnDiplomacy" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" index="0" unique_id=587011655]
+custom_minimum_size = Vector2(250, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Send delegation"
+
+[node name="BtnConflict" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" index="1" unique_id=745174927]
+custom_minimum_size = Vector2(250, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Launch assault"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/BtnDiplomacy" to="." method="_on_btn_diplomacy_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/BtnConflict" to="." method="_on_btn_conflict_pressed"]

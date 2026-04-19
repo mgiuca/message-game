@@ -7,6 +7,7 @@ const LEVEL_NAMES : Array[String] = [
   'radio_tuner',
   'pulse_detector',
   'image_decoder',
+  'ending',
 ]
 
 # List of test levels that won't show up in the level picker or rotation.
@@ -20,6 +21,7 @@ const LEVEL_DISPLAY_NAMES : Dictionary[String, String] = {
   'radio_tuner': 'Radio Tuner',
   'pulse_detector': 'Pulse Detector',
   'image_decoder': 'Image Decoder',
+  'ending': 'The Reply',
 }
 
 var current_level : Level:
