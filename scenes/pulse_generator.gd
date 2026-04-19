@@ -13,7 +13,7 @@ const WAV_STEREO : bool = false
 ## Length of each pulse (s). This includes both the active and gap period.
 const PULSE_LENGTH : float = 0.05
 ## Percentage of the pulse that is active.
-const DUTY_CYCLE : float = 0.5
+const DUTY_CYCLE : float = 1.0
 ## Total amplitude (0-1) where 1.0 means full blast values.
 const AMPLITUDE : float = 0.5
 ## Frequency (Hz) of the zero pulse.
