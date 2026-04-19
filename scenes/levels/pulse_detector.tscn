@@ -158,6 +158,7 @@ size_flags_horizontal = 10
 text = "Confirm"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="2" unique_id=189053425]
+volume_db = -10.0
 
 [connection signal="continue_drag" from="MarginContainer/VBoxContainer/Waveform" to="." method="_on_waveform_continue_drag"]
 [connection signal="end_drag" from="MarginContainer/VBoxContainer/Waveform" to="." method="_on_waveform_end_drag"]

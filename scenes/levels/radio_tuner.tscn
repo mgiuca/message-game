@@ -93,6 +93,7 @@ text = "Confirm"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="2" unique_id=189053425]
 stream = SubResource("AudioStreamSynchronized_wvbfs")
+volume_db = -10.0
 
 [connection signal="continue_drag" from="MarginContainer/VBoxContainer/Waveform" to="." method="_on_waveform_continue_drag"]
 [connection signal="start_drag" from="MarginContainer/VBoxContainer/Waveform" to="." method="_on_waveform_start_drag"]
