@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cj46p1qq7r6sp" path="res://scenes/ui/hud.tscn" id="4_epnyg"]
 [ext_resource type="Script" uid="uid://b2l5gq3a8js81" path="res://scenes/ui/story_dialog.gd" id="4_mx8sn"]
 [ext_resource type="Script" uid="uid://cyfvjuujmtqlv" path="res://scenes/ui/help.gd" id="4_ppgk2"]
+[ext_resource type="Texture2D" uid="uid://co4odjspj8kau" path="res://images/close.svg" id="5_2r41h"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_ppgk2"]
 action = &"help"
@@ -43,13 +44,15 @@ grow_vertical = 2
 script = ExtResource("4_ppgk2")
 
 [node name="BtnClose" type="Button" parent="Help/Panel" unique_id=1525208507]
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 1
 offset_left = 10.0
 offset_top = 10.0
-offset_right = 66.0
-offset_bottom = 42.0
+offset_right = 40.0
+offset_bottom = 40.0
 shortcut = SubResource("Shortcut_2r41h")
-text = "Close"
+icon = ExtResource("5_2r41h")
+expand_icon = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Help/Panel" unique_id=691202148]
 layout_mode = 1

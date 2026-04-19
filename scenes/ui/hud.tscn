@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cj46p1qq7r6sp"]
 
 [ext_resource type="Script" uid="uid://dbr6rxjei60ph" path="res://scenes/ui/hud.gd" id="1_nixt2"]
+[ext_resource type="Texture2D" uid="uid://bwy43v3ci6ddq" path="res://images/help.svg" id="2_hqnrr"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_0mwgc"]
 action = &"help"
@@ -29,10 +30,12 @@ size_flags_vertical = 0
 
 [node name="BtnHelp" type="Button" parent="TopLeft" unique_id=832994838]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 tooltip_text = "Show help for this level"
 shortcut = SubResource("Shortcut_hqnrr")
-text = "Help"
+icon = ExtResource("2_hqnrr")
+expand_icon = true
 
 [node name="TopRight" type="VBoxContainer" parent="." unique_id=907459423]
 layout_mode = 2

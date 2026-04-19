@@ -132,8 +132,12 @@ func seek(time: float) -> void:
   else:
     playhead_time = time
 
+const TEX_PLAY = preload('res://images/play.svg')
+const TEX_PAUSE = preload('res://images/pause.svg')
+
 func update_play_button_text() -> void:
-  btn_play_stop.text = 'Pause' if playing else 'Play'
+  btn_play_stop.icon = TEX_PAUSE if playing else TEX_PLAY
+  btn_play_stop.tooltip_text = 'Pause (Space)' if playing else 'Play (Space)'
 
 func _on_btn_confirm_pressed() -> void:
   const correct_frequency := SIGNAL_FREQUENCIES[0]

@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://mf2plrtlekcc" path="res://scenes/levels/radio_tuner.gd" id="2_irbbj"]
 [ext_resource type="Script" uid="uid://dpod4vx34s4q0" path="res://scenes/ui/waveform.gd" id="3_ncdmf"]
 [ext_resource type="Script" uid="uid://difglo3751lq8" path="res://scenes/ui/vline.gd" id="4_wvbfs"]
+[ext_resource type="Texture2D" uid="uid://dfld5r7wrdbf1" path="res://images/play.svg" id="5_orkii"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_ykfw7"]
 action = &"play_pause"
@@ -73,13 +74,14 @@ layout_mode = 2
 
 [node name="BtnPlayStop" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" index="0" unique_id=1983341254]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(70, 0)
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 0
 tooltip_text = "(Space)"
 shortcut = SubResource("Shortcut_12t0g")
 shortcut_in_tooltip = false
-text = "Play"
+icon = ExtResource("5_orkii")
+expand_icon = true
 
 [node name="ChkOnlyVisible" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer" index="1" unique_id=1475889869]
 unique_name_in_owner = true
