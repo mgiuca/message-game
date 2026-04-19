@@ -46,6 +46,7 @@ static func generate_audio_from_image(image: Image) -> AudioStreamWAV:
       produce_zeroes(data, start_sample + pulse_active_samples, pulse_inactive_samples)
 
   audio_stream.data = data
+  audio_stream.loop_end = data.size() - 1
   return audio_stream
 
 static func produce_sine_wave(buffer: PackedByteArray, start_idx : int,
