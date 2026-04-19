@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://ckk1n53xlhqvo"]
+
+[ext_resource type="PackedScene" uid="uid://tdgkmflrwhol" path="res://scenes/level.tscn" id="1_irbbj"]
+[ext_resource type="Script" uid="uid://mf2plrtlekcc" path="res://scenes/levels/radio_tuner.gd" id="2_irbbj"]
+
+[node name="RadioTuner" unique_id=1360869222 instance=ExtResource("1_irbbj")]
+script = ExtResource("2_irbbj")
+
+[node name="MarginContainer" type="MarginContainer" parent="." index="1" unique_id=1716162888]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" index="0" unique_id=1114240750]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer" index="0" unique_id=479684061]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer" index="1" unique_id=586325971]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" index="2" unique_id=875890818]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" index="0" unique_id=332318623]
+layout_mode = 2
+text = "Tuning frequency:"
+
+[node name="SldTuneFreq" type="HSlider" parent="MarginContainer/VBoxContainer/HBoxContainer" index="1" unique_id=1303130098]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="BtnConfirm" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" index="2" unique_id=1438555725]
+layout_mode = 2
+text = "Confirm"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/BtnConfirm" to="." method="_on_btn_confirm_pressed"]
