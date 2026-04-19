@@ -149,7 +149,6 @@ text = "Play"
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Loops over just the visible part of the waveform, rather than playing the whole thing."
-button_pressed = true
 text = "Only play visible section"
 
 [node name="BtnConfirm" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" index="2" unique_id=71189766]
