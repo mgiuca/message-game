@@ -94,8 +94,9 @@ func _on_gui_input(event: InputEvent) -> void:
       zoom_changed.emit(start_time, end_time)
 
 func _on_mouse_exited() -> void:
-  end_drag.emit(x_to_t(drag_last_position.x))
-  dragging = false
+  if dragging:
+    end_drag.emit(x_to_t(drag_last_position.x))
+    dragging = false
   scrolling = false
 
 func x_to_t(x: float) -> float:
