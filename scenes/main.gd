@@ -164,6 +164,7 @@ func screen_fade_out(duration: float = FADE_TIME) -> Signal:
     scrim_fade_tween.kill()
   scrim_fade_tween = create_tween()
   scrim_fade_tween.set_ignore_time_scale(true)
+  scrim_fade_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
   scrim_fade_tween.tween_property(fade_scrim, 'modulate', Color.WHITE, duration)
   return scrim_fade_tween.finished
 
@@ -174,6 +175,7 @@ func screen_fade_in(duration: float = FADE_TIME) -> void:
     scrim_fade_tween.kill()
   scrim_fade_tween = create_tween()
   scrim_fade_tween.set_ignore_time_scale(true)
+  scrim_fade_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
   scrim_fade_tween.tween_property(fade_scrim, 'modulate', Color('ffffff00'), duration)
   await scrim_fade_tween.finished
   scrim_layer.hide()

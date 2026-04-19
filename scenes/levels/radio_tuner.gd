@@ -33,6 +33,17 @@ var playhead_time : float:
 @onready var lbl_filter_freq : Label = %LblFilterFreq
 @onready var lbl_error : Label = %LblError
 
+const STORY_TEXT : String = """\
+A few days ago, we picked up a [color=light_green][wave]strange signal[/wave][/color] from a nearby star. \
+We now believe it was produced by intelligent life.
+
+You must [color=sky_blue]decode[/color] the signal and learn its message.
+
+First, scan the radio spectrum, looking for an [color=orange]irregular \
+pulse[/color]. Simple repeating patterns are of no interest, but only intelligent \
+life could make [color=orange]irregular[/color] patterns.
+"""
+
 var filter_frequency : float = 50:
   set(value):
     filter_frequency = value
@@ -53,6 +64,8 @@ func _ready() -> void:
   update_play_button_text()
 
   update_filter_frequency()
+
+  await story_dialog.show_dialog(STORY_TEXT)
 
 func set_up_streams() -> void:
   audio_stream.stream_count = 2

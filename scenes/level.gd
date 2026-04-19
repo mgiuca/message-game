@@ -2,6 +2,7 @@ class_name Level
 extends Control
 
 @onready var hud : HUD = $UI/HUD
+@onready var story_dialog : StoryDialog = %StoryDialog
 
 @export_group('Debug')
 
