@@ -5,3 +5,53 @@
 
 [node name="PulseDetector" unique_id=1360869222 instance=ExtResource("1_ybs3c")]
 script = ExtResource("2_baup0")
+
+[node name="MarginContainer" type="MarginContainer" parent="." index="1" unique_id=1716162888]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" index="0" unique_id=1114240750]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer" index="0" unique_id=479684061]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer" index="1" unique_id=586325971]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer" index="2" unique_id=397670952]
+layout_mode = 2
+theme_override_constants/h_separation = 15
+columns = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/GridContainer" index="0" unique_id=332318623]
+layout_mode = 2
+text = "Pulse width:"
+
+[node name="SldPulseWidth" type="HSlider" parent="MarginContainer/VBoxContainer/GridContainer" index="1" unique_id=1303130098]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/GridContainer" index="2" unique_id=2126644516]
+layout_mode = 2
+text = "Code #0 frequency:"
+
+[node name="SldFreqZero" type="HSlider" parent="MarginContainer/VBoxContainer/GridContainer" index="3" unique_id=1617815633]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/GridContainer" index="4" unique_id=2012870702]
+layout_mode = 2
+text = "Code #1 frequency:"
+
+[node name="SldFreqOne" type="HSlider" parent="MarginContainer/VBoxContainer/GridContainer" index="5" unique_id=431763478]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
