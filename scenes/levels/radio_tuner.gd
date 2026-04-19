@@ -3,6 +3,11 @@ extends Level
 # Percent tolerance for getting the correct answer.
 const VERIFY_TOLERANCE_PCT : float = 1.15
 
+const SIGNAL_FREQUENCY : float = 673
+# At this many Hz from the signal frequency, its volume will (just) be reduced
+# to 0.
+const FREQ_PICKUP_RANGE : float = 5
+
 var playing : bool = false:
   set(value):
     playing = value
@@ -67,8 +72,16 @@ func update_playhead() -> void:
   playhead.position.x = waveform.t_to_x(playhead_time)
 
 func update_filter_frequency() -> void:
-  audio_stream_player.stream = audio_stream
-  waveform.audio_stream = audio_stream
+  lbl_filter_freq.text = 'Tuning frequency: %.0f MHz' % filter_frequency
+
+  # Adjust the relative volumes of the sub-streams.
+  var dist_to_signal := absf(filter_frequency - SIGNAL_FREQUENCY)
+  var signal_volume_lin := clampf(1 - dist_to_signal / FREQ_PICKUP_RANGE, 0, 1)
+  audio_stream.set_sync_stream_volume(1, linear_to_db(signal_volume_lin))
+  # Noise is the remaining volume.
+  audio_stream.set_sync_stream_volume(0, linear_to_db(1 - signal_volume_lin))
+
+  waveform.queue_redraw()
 
 func seek(time: float) -> void:
   if audio_stream_player.playing and not audio_stream_player.stream_paused:
