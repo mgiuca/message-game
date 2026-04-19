@@ -9,6 +9,7 @@ var source_image : Image = load('res://data/image.png')
 var audio_stream : AudioStreamWAV
 
 @onready var btn_play_stop : Button = %BtnPlayStop
+@onready var tex_waveform : Waveform = %TexWaveform
 @onready var audio_stream_player : AudioStreamPlayer = $AudioStreamPlayer
 
 # Called when the node enters the scene tree for the first time.
@@ -17,6 +18,7 @@ func _ready() -> void:
 
   audio_stream = PulseGenerator.generate_audio_from_image(source_image)
   audio_stream_player.stream = audio_stream
+  tex_waveform.audio_stream = audio_stream
 
   update_play_button_text()
 

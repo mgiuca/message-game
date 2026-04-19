@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://tdgkmflrwhol" path="res://scenes/level.tscn" id="1_ybs3c"]
 [ext_resource type="Script" uid="uid://ci77x2yl4osyx" path="res://scenes/levels/pulse_detector.gd" id="2_baup0"]
+[ext_resource type="Script" uid="uid://dpod4vx34s4q0" path="res://scenes/ui/waveform.gd" id="3_d7fx5"]
 
 [node name="PulseDetector" unique_id=1360869222 instance=ExtResource("1_ybs3c")]
 script = ExtResource("2_baup0")
@@ -21,8 +22,11 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer" index="1" unique_id=586325971]
+[node name="TexWaveform" type="Control" parent="MarginContainer/VBoxContainer" index="1" unique_id=1987058582]
+unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("3_d7fx5")
 
 [node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer" index="2" unique_id=397670952]
 layout_mode = 2
