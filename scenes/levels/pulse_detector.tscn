@@ -166,6 +166,7 @@ text = "Confirm"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="2" unique_id=189053425]
 volume_db = -10.0
+bus = &"FX"
 
 [node name="HelpText" parent="Help/Panel/VBoxContainer" parent_id_path=PackedInt32Array(691202148) index="0" unique_id=2042522381]
 text = "First, you must tag the [color=orange]pulse width[/color], which is how far apart the pulses are in time. Select \"Tag pulse width\" mode, then [color=sky_blue]click and drag[/color] on the waveform to mark a width. It doesn't matter where you tag, just how wide the tag is.

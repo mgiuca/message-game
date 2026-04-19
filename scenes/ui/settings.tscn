@@ -43,6 +43,7 @@ button_pressed = true
 text = "Fullscreen"
 
 [node name="HbxMusic" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=778010153]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 
@@ -67,7 +68,7 @@ theme_override_constants/separation = 10
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HbxSound" unique_id=928639090]
 custom_minimum_size = Vector2(210, 1.45519e-11)
 layout_mode = 2
-text = "Sound effects volume:"
+text = "Volume:"
 
 [node name="SldSoundVolume" type="HSlider" parent="MarginContainer/VBoxContainer/HbxSound" unique_id=975379990]
 unique_name_in_owner = true
