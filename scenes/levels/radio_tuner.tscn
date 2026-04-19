@@ -76,7 +76,9 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(70, 0)
 layout_mode = 2
 size_flags_horizontal = 0
+tooltip_text = "(Space)"
 shortcut = SubResource("Shortcut_12t0g")
+shortcut_in_tooltip = false
 text = "Play"
 
 [node name="ChkOnlyVisible" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer" index="1" unique_id=1475889869]
@@ -105,7 +107,7 @@ text = "Use the [color=sky_blue]tuner[/color] to adjust the frequency that the r
 
 Listen and watch as the signal changes. Remember, you are looking for an [color=orange]irregular pattern[/color] (not a simple pattern).
 
-When you have found the correct frequency, press [color=light_red]Confirm[/color] to proceed."
+When you have found the correct frequency, press [color=indian_red]Confirm[/color] to proceed. Press F1 to bring up this help message."
 
 [connection signal="continue_drag" from="MarginContainer/VBoxContainer/Waveform" to="." method="_on_waveform_continue_drag"]
 [connection signal="start_drag" from="MarginContainer/VBoxContainer/Waveform" to="." method="_on_waveform_start_drag"]

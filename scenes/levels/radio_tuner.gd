@@ -110,7 +110,7 @@ func update_play_button_text() -> void:
 
 func _on_btn_confirm_pressed() -> void:
   if absf(filter_frequency - SIGNAL_FREQUENCY) > VERIFY_TOLERANCE_RANGE:
-    set_error('There is no non-repetitive signal at that frequency')
+    set_error('There is no irregular pattern at that frequency')
     return
 
   LevelManager.switch_to_next_level_or_quit()
