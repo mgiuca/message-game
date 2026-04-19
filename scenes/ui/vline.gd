@@ -1,5 +1,4 @@
 ## Vertical line.
-@tool
 class_name VLine
 extends Control
 
