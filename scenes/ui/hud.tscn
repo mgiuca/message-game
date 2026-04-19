@@ -2,6 +2,13 @@
 
 [ext_resource type="Script" uid="uid://dbr6rxjei60ph" path="res://scenes/ui/hud.gd" id="1_nixt2"]
 
+[sub_resource type="InputEventAction" id="InputEventAction_0mwgc"]
+action = &"help"
+pressed = true
+
+[sub_resource type="Shortcut" id="Shortcut_hqnrr"]
+events = [SubResource("InputEventAction_0mwgc")]
+
 [node name="HUD" type="MarginContainer" unique_id=545799309]
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,9 +27,11 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="LblLevelName" type="Label" parent="TopLeft" unique_id=745023679]
-unique_name_in_owner = true
+[node name="BtnHelp" type="Button" parent="TopLeft" unique_id=832994838]
 layout_mode = 2
+tooltip_text = "Show help for this level"
+shortcut = SubResource("Shortcut_hqnrr")
+text = "Help"
 
 [node name="TopRight" type="VBoxContainer" parent="." unique_id=907459423]
 layout_mode = 2
@@ -64,3 +73,5 @@ size_flags_vertical = 8
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
+
+[connection signal="pressed" from="TopLeft/BtnHelp" to="." method="_on_btn_help_pressed"]

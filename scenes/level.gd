@@ -2,6 +2,7 @@ class_name Level
 extends Control
 
 @onready var hud : HUD = $UI/HUD
+@onready var help_panel : Panel = $Help/Panel
 @onready var story_dialog : StoryDialog = %StoryDialog
 
 @export_group('Debug')
@@ -28,6 +29,9 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
   # Meta/UI inputs.
   if event.is_action_pressed('menu'):
+    if help_panel.visible:
+      help_panel.hide()
+      return
     if esc_immediately_quits:
       get_tree().quit()
     else:
@@ -38,3 +42,9 @@ func _unhandled_input(event: InputEvent) -> void:
     LevelManager.switch_to_prev_level()
   elif event.is_action_pressed('debug_next_level'):
     LevelManager.switch_to_next_level()
+
+func _on_hud_show_help() -> void:
+  show_help()
+
+func show_help() -> void:
+  help_panel.show()

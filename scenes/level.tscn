@@ -4,6 +4,14 @@
 [ext_resource type="PackedScene" uid="uid://c7js5gws2kjj5" path="res://scenes/ui/menu.tscn" id="3_8hwtq"]
 [ext_resource type="PackedScene" uid="uid://cj46p1qq7r6sp" path="res://scenes/ui/hud.tscn" id="4_epnyg"]
 [ext_resource type="Script" uid="uid://b2l5gq3a8js81" path="res://scenes/ui/story_dialog.gd" id="4_mx8sn"]
+[ext_resource type="Script" uid="uid://cyfvjuujmtqlv" path="res://scenes/ui/help.gd" id="4_ppgk2"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_ppgk2"]
+action = &"help"
+pressed = true
+
+[sub_resource type="Shortcut" id="Shortcut_2r41h"]
+events = [SubResource("InputEventAction_ppgk2")]
 
 [node name="Level" type="Control" unique_id=1360869222]
 layout_mode = 3
@@ -22,6 +30,53 @@ script = ExtResource("1_w8frs")
 unique_name_in_owner = true
 process_mode = 2
 visible = false
+
+[node name="Help" type="CanvasLayer" parent="." unique_id=1994340857]
+
+[node name="Panel" type="Panel" parent="Help" unique_id=666541143]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_ppgk2")
+
+[node name="BtnClose" type="Button" parent="Help/Panel" unique_id=1525208507]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 66.0
+offset_bottom = 42.0
+shortcut = SubResource("Shortcut_2r41h")
+text = "Close"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Help/Panel" unique_id=691202148]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -54.0
+offset_right = 300.0
+offset_bottom = 54.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="HelpText" type="RichTextLabel" parent="Help/Panel/VBoxContainer" unique_id=2042522381]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="BtnClose2" type="Button" parent="Help/Panel/VBoxContainer" unique_id=1102256856]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Got it"
 
 [node name="Dialog" type="CanvasLayer" parent="." unique_id=1170290015]
 
@@ -66,5 +121,9 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "OK"
 
+[connection signal="show_help" from="UI/HUD" to="." method="_on_hud_show_help"]
 [connection signal="closed" from="UI/Menu" to="." method="_on_menu_closed"]
+[connection signal="visibility_changed" from="Help/Panel" to="Help/Panel" method="_on_visibility_changed"]
+[connection signal="pressed" from="Help/Panel/BtnClose" to="Help/Panel" method="_on_btn_close_pressed"]
+[connection signal="pressed" from="Help/Panel/VBoxContainer/BtnClose2" to="Help/Panel" method="_on_btn_close_pressed"]
 [connection signal="pressed" from="Dialog/StoryDialog/MarginContainer/VBoxContainer/BtnClose" to="Dialog/StoryDialog" method="_on_btn_close_pressed"]

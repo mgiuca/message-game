@@ -66,6 +66,7 @@ func _ready() -> void:
   update_filter_frequency()
 
   await story_dialog.show_dialog(STORY_TEXT)
+  show_help()
 
 func set_up_streams() -> void:
   audio_stream.stream_count = 2
