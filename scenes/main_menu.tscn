@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bvweswfxul5oo"]
 
 [ext_resource type="Script" uid="uid://5ic8vnmqsxg4" path="res://scenes/main_menu.gd" id="1_rxnnp"]
+[ext_resource type="Texture2D" uid="uid://c7a5t4ynrhdcc" path="res://data/logo.png" id="2_bqqt6"]
 [ext_resource type="PackedScene" uid="uid://f3wv5ma8xvb0" path="res://scenes/ui/settings.tscn" id="3_wo74h"]
 
 [node name="MainMenu" type="Node" unique_id=1629672346]
@@ -32,14 +33,9 @@ offset_bottom = 132.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LblTitle" type="Label" parent="UI/TopLevel/VBoxContainer" unique_id=1173459649]
-custom_minimum_size = Vector2(300, 1.45519e-11)
+[node name="TexTitle" type="TextureRect" parent="UI/TopLevel/VBoxContainer" unique_id=465526495]
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 40
-text = "The Message"
-horizontal_alignment = 1
-autowrap_mode = 3
+texture = ExtResource("2_bqqt6")
 
 [node name="LblAuthor" type="Label" parent="UI/TopLevel/VBoxContainer" unique_id=516143576]
 custom_minimum_size = Vector2(300, 1.45519e-11)
