@@ -3,6 +3,30 @@
 [ext_resource type="FontFile" uid="uid://47357r878fb3" path="res://fonts/Play-Regular.ttf" id="1_hfqwl"]
 [ext_resource type="FontFile" uid="uid://c8r4dwqupym5e" path="res://fonts/Play-Bold.ttf" id="1_uhgh2"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bhwv2"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.79607844)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h6ia1"]
+bg_color = Color(0.31764707, 0.30588236, 0.34117648, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.13319638, 0.13319641, 0.1331963, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
 [resource]
 default_font = ExtResource("1_hfqwl")
 default_font_size = 20
@@ -13,6 +37,8 @@ MarginContainer/constants/margin_bottom = 10
 MarginContainer/constants/margin_left = 10
 MarginContainer/constants/margin_right = 10
 MarginContainer/constants/margin_top = 10
+Panel/styles/panel = SubResource("StyleBoxFlat_bhwv2")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_h6ia1")
 RichTextLabel/colors/font_shadow_color = Color(0, 0, 0, 0.71)
 RichTextLabel/constants/shadow_outline_size = 3
 RichTextLabel/fonts/bold_font = ExtResource("1_uhgh2")
