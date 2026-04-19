@@ -49,6 +49,24 @@ static func generate_audio_from_image(image: Image) -> AudioStreamWAV:
   audio_stream.loop_end = data.size() - 1
   return audio_stream
 
+## Makes a white noise audio.
+static func generate_audio_from_noise(duration: float) -> AudioStreamWAV:
+  var audio_stream := AudioStreamWAV.new()
+  audio_stream.format = WAV_FORMAT
+  audio_stream.mix_rate = WAV_MIX_RATE
+  audio_stream.stereo = WAV_STEREO
+  audio_stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
+
+  var data : PackedByteArray
+  var num_samples := roundi(WAV_MIX_RATE * duration)
+  data.resize(num_samples)
+  for i in num_samples:
+    data[i] = randi_range(0, 255)
+
+  audio_stream.data = data
+  audio_stream.loop_end = data.size() - 1
+  return audio_stream
+
 static func produce_sine_wave(buffer: PackedByteArray, start_idx : int,
                               length: int, freq: float) -> void:
   assert(start_idx + length <= buffer.size())
