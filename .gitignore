@@ -9,7 +9,5 @@
 /android/
 
 # Reaper ignores
-/source/music/Media
-/source/music/Backups
-/source/sounds/Media
-/source/sounds/Backups
+/source/Media
+/source/Backups

@@ -43,6 +43,9 @@ func _ready() -> void:
   gui_input.connect(_on_gui_input)
   mouse_exited.connect(_on_mouse_exited)
 
+# Critical: This assumes that the FIRST substream is the full length of the
+# waveform, but subsequent streams can be shorter (implied that they loop).
+
 func _draw() -> void:
   if not audio_stream:
     return
@@ -76,7 +79,8 @@ func draw_wavs(streams: Array[AudioStreamWAV], volumes: PackedFloat32Array) -> v
   for i in range(st, et):
     var sample : float = 0
     for j in streams.size():
-      sample += float(datas[j].decode_s8(i)) / 128.0 * volumes[j]
+      var substream_size := datas[j].size()
+      sample += float(datas[j].decode_s8(i % substream_size)) / 128.0 * volumes[j]
     sample = clampf(sample, -1, 1)
     var percent_sample := sample * 0.5 + 0.5
     var percent_time := float(i - st) / float(et - st)

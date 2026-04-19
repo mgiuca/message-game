@@ -3,10 +3,20 @@ extends Level
 # How many Hz from the correct frequency to win.
 const VERIFY_TOLERANCE_RANGE : float = 2
 
-const SIGNAL_FREQUENCY : float = 673
 # At this many Hz from the signal frequency, its volume will (just) be reduced
 # to 0.
 const FREQ_PICKUP_RANGE : float = 5
+
+## Frequencies at which all the different sounding signals reside. #0 is the
+## "correct" one. These are not necessarily in order.
+const SIGNAL_FREQUENCIES : PackedFloat32Array = [
+  673,
+  237,
+  78,
+  892,
+  340,
+  791,
+]
 
 var playing : bool = false:
   set(value):
@@ -69,9 +79,20 @@ func _ready() -> void:
   show_help()
 
 func set_up_streams() -> void:
-  audio_stream.stream_count = 2
+  audio_stream.stream_count = 7
   audio_stream.set_sync_stream(0, noise_audio_stream)
+  # The 6 signals. Corresponding to SIGNAL_FREQUENCIES but offset by 1.
   audio_stream.set_sync_stream(1, signal_audio_stream)
+  # The "other" ones.
+  var other_streams : Array[AudioStreamWAV] = [
+    load('res://data/noise-001.wav'),
+    load('res://data/noise-002.wav'),
+    load('res://data/noise-003.wav'),
+    load('res://data/noise-004.wav'),
+    load('res://data/noise-005.wav'),
+  ]
+  for i in other_streams.size():
+    audio_stream.set_sync_stream(i + 2, other_streams[i])
 
 func _process(_delta: float) -> void:
   if audio_stream_player.playing and not audio_stream_player.stream_paused:
@@ -90,11 +111,17 @@ func update_filter_frequency() -> void:
   lbl_filter_freq.text = 'Tuning frequency: %.0f MHz' % filter_frequency
 
   # Adjust the relative volumes of the sub-streams.
-  var dist_to_signal := absf(filter_frequency - SIGNAL_FREQUENCY)
-  var signal_volume_lin := clampf(1 - dist_to_signal / FREQ_PICKUP_RANGE, 0, 1)
-  audio_stream.set_sync_stream_volume(1, linear_to_db(signal_volume_lin))
+  var remaining_amplitude_lin : float = 1.0
+  for i in SIGNAL_FREQUENCIES.size():
+    var signal_frequency := SIGNAL_FREQUENCIES[i]
+    var dist_to_signal := absf(filter_frequency - signal_frequency)
+    var signal_volume_lin := clampf(1 - dist_to_signal / FREQ_PICKUP_RANGE, 0, 1)
+    remaining_amplitude_lin -= signal_volume_lin
+    audio_stream.set_sync_stream_volume(i + 1, linear_to_db(signal_volume_lin))
+
   # Noise is the remaining volume.
-  audio_stream.set_sync_stream_volume(0, linear_to_db(1 - signal_volume_lin))
+  remaining_amplitude_lin = clampf(remaining_amplitude_lin, 0, 1)
+  audio_stream.set_sync_stream_volume(0, linear_to_db(remaining_amplitude_lin))
 
   waveform.queue_redraw()
 
@@ -109,7 +136,8 @@ func update_play_button_text() -> void:
   btn_play_stop.text = 'Pause' if playing else 'Play'
 
 func _on_btn_confirm_pressed() -> void:
-  if absf(filter_frequency - SIGNAL_FREQUENCY) > VERIFY_TOLERANCE_RANGE:
+  const correct_frequency := SIGNAL_FREQUENCIES[0]
+  if absf(filter_frequency - correct_frequency) > VERIFY_TOLERANCE_RANGE:
     set_error('There is no irregular pattern at that frequency')
     return
 
