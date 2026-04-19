@@ -19,7 +19,7 @@ func _ready() -> void:
 func update_display() -> void:
   var source_size := source_image.get_size()
   var pixel_count := source_size.x * source_size.y
-  var image_height : int = roundi(float(pixel_count) / float(image_width))
+  var image_height : int = ceili(float(pixel_count) / float(image_width))
   lbl_size.text = '%dx%d' % [image_width, image_height]
 
   # Redraw the image with the given width and height. Just copy the pixels from
