@@ -50,7 +50,6 @@ func _draw() -> void:
   var data := audio_stream.data
   var points : PackedVector2Array
   var canvas_size := get_rect().size
-  print('Redraw: %.2f - %.2f' % [start_time, end_time])
   var st := clampi(roundi(start_time * mix_rate), 0, data.size() - 1)
   var et := clampi(roundi(end_time * mix_rate), 0, data.size() - 1)
   for i in range(st, et):
