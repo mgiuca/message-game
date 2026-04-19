@@ -7,6 +7,8 @@ extends Level
 @onready var image_rect : TextureRect = %ImageRect
 @onready var lbl_size : Label = %LblSize
 
+@onready var lbl_error : Label = %LblError
+
 # Must be 1 byte per pixel for the below algorithm to work.
 const IMAGE_FORMAT = Image.FORMAT_L8
 
@@ -46,9 +48,16 @@ func _on_sld_width_value_changed(value: float) -> void:
   # affects width the same as the right end affects height).
   image_width = roundi(value)
   update_display()
+  clear_error()
 
 func _on_btn_confirm_pressed() -> void:
   if image_width == source_image.get_width():
     LevelManager.switch_to_next_level_or_quit()
   else:
-    print("That doesn't look quite right")
+    set_error("That doesn't look quite right")
+
+func set_error(message: String) -> void:
+  lbl_error.text = message
+
+func clear_error() -> void:
+  lbl_error.text = ''

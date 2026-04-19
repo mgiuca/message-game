@@ -57,9 +57,18 @@ size_flags_vertical = 4
 min_value = 15.0
 value = 15.0
 
-[node name="BtnConfirm" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" index="2" unique_id=181740838]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" index="3" unique_id=1657578497]
+layout_mode = 2
+
+[node name="LblError" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2" index="0" unique_id=2103385297]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_colors/font_color = Color(1, 0.56330335, 0.504183, 1)
+
+[node name="BtnConfirm" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2" index="1" unique_id=181740838]
 layout_mode = 2
 text = "Confirm"
 
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/HBoxContainer/SldWidth" to="." method="_on_sld_width_value_changed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/BtnConfirm" to="." method="_on_btn_confirm_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/BtnConfirm" to="." method="_on_btn_confirm_pressed"]

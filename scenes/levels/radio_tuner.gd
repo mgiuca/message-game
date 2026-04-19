@@ -31,6 +31,7 @@ var playhead_time : float:
 
 @onready var playhead : VLine = %Waveform/PlayHead
 @onready var lbl_filter_freq : Label = %LblFilterFreq
+@onready var lbl_error : Label = %LblError
 
 var filter_frequency : float = 50:
   set(value):
@@ -95,7 +96,7 @@ func update_play_button_text() -> void:
 
 func _on_btn_confirm_pressed() -> void:
   if absf(filter_frequency - SIGNAL_FREQUENCY) > VERIFY_TOLERANCE_RANGE:
-    print('There is no non-repetitive signal at that frequency')
+    set_error('There is no non-repetitive signal at that frequency')
     return
 
   LevelManager.switch_to_next_level_or_quit()
@@ -127,3 +128,10 @@ func _on_waveform_continue_drag(time: float) -> void:
 
 func _on_sld_tune_freq_value_changed(value: float) -> void:
   filter_frequency = value
+  clear_error()
+
+func set_error(message: String) -> void:
+  lbl_error.text = message
+
+func clear_error() -> void:
+  lbl_error.text = ''

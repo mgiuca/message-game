@@ -151,9 +151,15 @@ layout_mode = 2
 tooltip_text = "Loops over just the visible part of the waveform, rather than playing the whole thing."
 text = "Only play visible section"
 
-[node name="BtnConfirm" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" index="2" unique_id=71189766]
+[node name="LblError" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" index="2" unique_id=203415017]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
+theme_override_colors/font_color = Color(1, 0.56330335, 0.504183, 1)
+
+[node name="BtnConfirm" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" index="3" unique_id=71189766]
+layout_mode = 2
+size_flags_horizontal = 8
 text = "Confirm"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="2" unique_id=189053425]

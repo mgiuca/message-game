@@ -31,6 +31,8 @@ var playhead_time : float:
 @onready var lbl_zero_freq : Label = %LblZeroFreq
 @onready var lbl_one_freq : Label = %LblOneFreq
 
+@onready var lbl_error : Label = %LblError
+
 # Note: start is not necessarily before end; start is just where you started
 # clicking and end is where you finished clicking.
 class TagRange extends RefCounted:
@@ -99,13 +101,13 @@ func _on_btn_confirm_pressed() -> void:
 
   if pulse_width < CORRECT_PULSE_WIDTH / VERIFY_TOLERANCE_PCT or \
      pulse_width > CORRECT_PULSE_WIDTH * VERIFY_TOLERANCE_PCT:
-    print('Pulse width seems off...')
+    set_error('Pulse width seems off...')
     return
   if zero_p2p < CORRECT_ZERO_P2P / VERIFY_TOLERANCE_PCT or \
      zero_p2p > CORRECT_ZERO_P2P * VERIFY_TOLERANCE_PCT or \
      one_p2p < CORRECT_ONE_P2P / VERIFY_TOLERANCE_PCT or \
      one_p2p > CORRECT_ONE_P2P * VERIFY_TOLERANCE_PCT:
-    print('One or both of the code frequencies seems off...')
+    set_error('One or both of the code frequencies seems off...')
     return
 
   LevelManager.switch_to_next_level_or_quit()
@@ -137,6 +139,7 @@ func _on_waveform_start_drag(time: float) -> void:
   selected_tag_range.start = time
   selected_tag_range.end = time
   update_tags()
+  clear_error()
 
 func _on_waveform_end_drag(time: float) -> void:
   if selected_tag_range == null:
@@ -187,3 +190,9 @@ func _on_chk_tagging_mode_toggled(toggled_on: bool, index: int) -> void:
       selected_tag_range = p2p_zero_range
     3:
       selected_tag_range = p2p_one_range
+
+func set_error(message: String) -> void:
+  lbl_error.text = message
+
+func clear_error() -> void:
+  lbl_error.text = ''
