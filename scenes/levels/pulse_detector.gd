@@ -1,5 +1,8 @@
 extends Level
 
+# Percent tolerance for getting the correct answer.
+const VERIFY_TOLERANCE_PCT : float = 1.15
+
 var playing : bool = false:
   set(value):
     playing = value
@@ -86,7 +89,25 @@ func update_play_button_text() -> void:
   btn_play_stop.text = 'Pause' if playing else 'Play'
 
 func _on_btn_confirm_pressed() -> void:
-  # TODO: Check
+  var pulse_width := pulse_width_range.width
+  var zero_p2p := p2p_zero_range.width
+  var one_p2p := p2p_one_range.width
+
+  const CORRECT_PULSE_WIDTH := PulseGenerator.PULSE_LENGTH
+  const CORRECT_ZERO_P2P := 1 / PulseGenerator.FREQ_ZERO
+  const CORRECT_ONE_P2P := 1 / PulseGenerator.FREQ_ONE
+
+  if pulse_width < CORRECT_PULSE_WIDTH / VERIFY_TOLERANCE_PCT or \
+     pulse_width > CORRECT_PULSE_WIDTH * VERIFY_TOLERANCE_PCT:
+    print('Pulse width seems off...')
+    return
+  if zero_p2p < CORRECT_ZERO_P2P / VERIFY_TOLERANCE_PCT or \
+     zero_p2p > CORRECT_ZERO_P2P * VERIFY_TOLERANCE_PCT or \
+     one_p2p < CORRECT_ONE_P2P / VERIFY_TOLERANCE_PCT or \
+     one_p2p > CORRECT_ONE_P2P * VERIFY_TOLERANCE_PCT:
+    print('One or both of the code frequencies seems off...')
+    return
+
   LevelManager.switch_to_next_level_or_quit()
 
 func play() -> void:
