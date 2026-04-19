@@ -13,7 +13,13 @@ extends Level
 const IMAGE_FORMAT = Image.FORMAT_L8
 
 const STORY_TEXT : String = """\
-STORY 3
+Using your code frequencies, we were able to convert each pulse in the entire \
+signal into a 1 or a 0: a [color=orange]binary code[/color]! But what could it mean?
+
+Perhaps a picture? What if we make each 0 a black pixel and each 1 a white pixel... \
+we would just need to figure out how to arrange the pixels into a rectangular grid.
+
+Try to figure out if there is any arrangement that makes a meaningful picture.
 """
 
 # Called when the node enters the scene tree for the first time.
