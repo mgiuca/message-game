@@ -24,8 +24,18 @@ const MAX_DURATION : float = 5.0
     end_time = clampf(value, 0.0, audio_stream.get_length())
     queue_redraw()
 
+var dragging : bool = false
+var drag_last_position : Vector2
+
+signal start_drag(time: float)
+signal continue_drag(time: float)
+signal end_drag(time: float)
+
+signal zoom_changed(start_time: float, end_time: float)
+
 func _ready() -> void:
   gui_input.connect(_on_gui_input)
+  mouse_exited.connect(_on_mouse_exited)
 
 func _draw() -> void:
   if not audio_stream:
@@ -53,15 +63,39 @@ func _on_gui_input(event: InputEvent) -> void:
       change_zoom(1, mouse_event.position)
     elif mouse_event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
       change_zoom(-1, mouse_event.position)
+    elif mouse_event.button_index == MOUSE_BUTTON_LEFT:
+      if mouse_event.is_pressed():
+        start_drag.emit(x_to_t(mouse_event.position.x))
+        dragging = true
+        drag_last_position = mouse_event.position
+      elif dragging:
+        end_drag.emit(x_to_t(mouse_event.position.x))
+        dragging = false
+  elif event is InputEventMouseMotion:
+    var mouse_event := event as InputEventMouseMotion
+    if dragging:
+      continue_drag.emit(x_to_t(mouse_event.position.x))
+      drag_last_position = mouse_event.position
+
+func _on_mouse_exited() -> void:
+  end_drag.emit(x_to_t(drag_last_position.x))
+  dragging = false
+
+func x_to_t(x: float) -> float:
+  return (x / size.x) * (end_time - start_time) + start_time
+
+func t_to_x(t: float) -> float:
+  return ((t - start_time) / (end_time - start_time)) * size.x
 
 func change_zoom(dir: float, pos: Vector2) -> void:
   var old_dur := end_time - start_time
 
-  var pos_x := pos.x
-  var pos_time := (pos.x / size.x) * old_dur + start_time
+  var pos_time := x_to_t(pos.x)
 
   # Aim to keep pos_time the same before and after.
   var new_dur := old_dur / ZOOM_TICK_PERCENT if dir > 0 else old_dur * ZOOM_TICK_PERCENT
   new_dur = clampf(new_dur, MIN_DURATION, MAX_DURATION)
   start_time = pos_time - (pos.x / size.x) * new_dur
   end_time = start_time + new_dur
+
+  zoom_changed.emit(start_time, end_time)
