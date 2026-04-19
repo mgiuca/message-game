@@ -5,14 +5,13 @@ on:
     branches:
       - release
 
-# TODO: Change EXPORT_NAME to the correct app name.
 env:
   # If changing Godot version, need to manually refresh the SHA256 sums (see
   # "Verify hash" step below).
   GODOT_VERSION: 4.7-dev5
   # Same as GODOT_VERSION but with '.' instead of '-'.
   GODOT_VERSION_DOT: 4.7.dev5
-  EXPORT_NAME: app-name
+  EXPORT_NAME: the-message
   # debug or release
   EXPORT_BUILD: release
 
