@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cpgf2k4g1lyjg"]
+
+[ext_resource type="PackedScene" uid="uid://tdgkmflrwhol" path="res://scenes/level.tscn" id="1_ybs3c"]
+[ext_resource type="Script" uid="uid://ci77x2yl4osyx" path="res://scenes/levels/pulse_detector.gd" id="2_baup0"]
+
+[node name="PulseDetector" unique_id=1360869222 instance=ExtResource("1_ybs3c")]
+script = ExtResource("2_baup0")
