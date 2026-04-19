@@ -21,6 +21,7 @@ var playhead_time : float:
 @onready var chk_only_visible : CheckBox = %ChkOnlyVisible
 @onready var waveform : Waveform = %Waveform
 @onready var audio_stream_player : AudioStreamPlayer = $AudioStreamPlayer
+@onready var audio_stream_sync : AudioStreamSynchronized = audio_stream_player.stream
 
 @onready var tag_span_pulse_width : TagSpan = %Waveform/TagSpanPulseWidth
 @onready var tag_span_p2p_zero : TagSpan = %Waveform/TagSpanP2PZero
@@ -66,8 +67,18 @@ func _ready() -> void:
   super._ready()
 
   audio_stream = PulseGenerator.generate_audio_from_image(source_image)
-  audio_stream_player.stream = audio_stream
   waveform.audio_stream = audio_stream
+
+  # NOTE: We use an AudioStreamSynchronized with only one stream in it. This
+  # should basically be the same as just assigning audio_stream to the player,
+  # but empirically it performs *much* better on the web. Just using an
+  # AudioStreamWAV on the web export has very unreliable get_playback_position()
+  # which means the play cursor is laggy, and more importantly, the looping is
+  # completely unreliable (required to solve the puzzle!) It seems that using
+  # an AudioStreamSynchronized (like we do in [RadioTuner]) solves this
+  # completely.
+  audio_stream_sync.stream_count = 1
+  audio_stream_sync.set_sync_stream(0, audio_stream)
 
   update_playhead()
 

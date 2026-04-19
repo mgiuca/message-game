@@ -15,6 +15,8 @@ pressed = true
 [sub_resource type="Shortcut" id="Shortcut_12t0g"]
 events = [SubResource("InputEventAction_ykfw7")]
 
+[sub_resource type="AudioStreamSynchronized" id="AudioStreamSynchronized_ykfw7"]
+
 [node name="PulseDetector" unique_id=1360869222 instance=ExtResource("1_ybs3c")]
 script = ExtResource("2_baup0")
 
@@ -165,6 +167,7 @@ size_flags_horizontal = 8
 text = "Confirm"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="2" unique_id=189053425]
+stream = SubResource("AudioStreamSynchronized_ykfw7")
 volume_db = -10.0
 bus = &"FX"
 
