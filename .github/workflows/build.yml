@@ -9,9 +9,9 @@ on:
 env:
   # If changing Godot version, need to manually refresh the SHA256 sums (see
   # "Verify hash" step below).
-  GODOT_VERSION: 4.6.1-stable
+  GODOT_VERSION: 4.7-dev5
   # Same as GODOT_VERSION but with '.' instead of '-'.
-  GODOT_VERSION_DOT: 4.6.1.stable
+  GODOT_VERSION_DOT: 4.7.dev5
   EXPORT_NAME: app-name
   # debug or release
   EXPORT_BUILD: release
