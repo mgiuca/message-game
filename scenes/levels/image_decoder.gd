@@ -1,6 +1,6 @@
 extends Level
 
-var image_width : int = 1
+@onready var image_width : int = roundi((%SldWidth as Slider).value)
 
 @onready var source_image : Image = load('res://data/image.png')
 
