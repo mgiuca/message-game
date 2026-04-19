@@ -12,11 +12,18 @@ extends Level
 # Must be 1 byte per pixel for the below algorithm to work.
 const IMAGE_FORMAT = Image.FORMAT_L8
 
+const STORY_TEXT : String = """\
+STORY 3
+"""
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
   super._ready()
 
   update_display()
+
+  await story_dialog.show_dialog(STORY_TEXT)
+  show_help()
 
 func update_display() -> void:
   var source_size := source_image.get_size()

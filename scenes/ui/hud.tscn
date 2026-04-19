@@ -28,6 +28,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 
 [node name="BtnHelp" type="Button" parent="TopLeft" unique_id=832994838]
+unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Show help for this level"
 shortcut = SubResource("Shortcut_hqnrr")

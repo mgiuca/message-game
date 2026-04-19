@@ -5,6 +5,8 @@ extends MarginContainer
 
 signal show_help
 
+@onready var btn_help : Button = %BtnHelp
+
 ## Determines whether "debug"-level information is visible.
 @export var debug_visible : bool:
   set(value):
@@ -23,3 +25,6 @@ func set_framerate(framerate: float) -> void:
 
 func _on_btn_help_pressed() -> void:
   show_help.emit()
+
+func hide_help_button() -> void:
+  btn_help.hide()

@@ -53,6 +53,10 @@ class TagRange extends RefCounted:
 
 var selected_tag_range : TagRange  # alias one of the above
 
+const STORY_TEXT : String = """\
+STORY 2
+"""
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
   super._ready()
@@ -66,6 +70,9 @@ func _ready() -> void:
   update_play_button_text()
   ($MarginContainer/VBoxContainer/GridContainer/ChkPlayhead as CheckBox).button_pressed = true
   update_tags()
+
+  await story_dialog.show_dialog(STORY_TEXT)
+  show_help()
 
 func _process(_delta: float) -> void:
   if audio_stream_player.playing and not audio_stream_player.stream_paused:
