@@ -54,7 +54,11 @@ class TagRange extends RefCounted:
 var selected_tag_range : TagRange  # alias one of the above
 
 const STORY_TEXT : String = """\
-STORY 2
+Great work! The demodulated signal sounds like a code, consisting of two tones: \
+a [color=sky_blue]high pitch[/color] and a [color=medium_slate_blue]low pitch[/color].
+
+Let's identify the [color=orange]precise frequency[/color] of those tones, as well \
+as how far apart they are spaced. Then, we should be able to decode the message.
 """
 
 # Called when the node enters the scene tree for the first time.
@@ -108,13 +112,13 @@ func _on_btn_confirm_pressed() -> void:
 
   if pulse_width < CORRECT_PULSE_WIDTH / VERIFY_TOLERANCE_PCT or \
      pulse_width > CORRECT_PULSE_WIDTH * VERIFY_TOLERANCE_PCT:
-    set_error('Pulse width seems off...')
+    set_error('The pulse width seems incorrect')
     return
   if zero_p2p < CORRECT_ZERO_P2P / VERIFY_TOLERANCE_PCT or \
      zero_p2p > CORRECT_ZERO_P2P * VERIFY_TOLERANCE_PCT or \
      one_p2p < CORRECT_ONE_P2P / VERIFY_TOLERANCE_PCT or \
      one_p2p > CORRECT_ONE_P2P * VERIFY_TOLERANCE_PCT:
-    set_error('One or both of the code frequencies seems off...')
+    set_error('One or both of the code frequencies seems incorrect')
     return
 
   LevelManager.switch_to_next_level_or_quit()
